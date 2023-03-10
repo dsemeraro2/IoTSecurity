@@ -1,0 +1,5 @@
+IDE: CLion VERSION 3.24
+Version of C++: C++ 17
+Build tool: ninja.exe
+C Compiler: gcc.exe
+C++ Compiler: g++.exe
