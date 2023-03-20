@@ -1,5 +1,6 @@
 // C++ program to rotate a matrix
 #include <bits/stdc++.h>
+#include <unistd.h>
 #define R 5
 #define C 5
 using namespace std;
@@ -88,7 +89,8 @@ int main()
                      {'*', ' ', ' ', ' ', '*'},
                      {'*', '*', '*', '*', '*'} };
 
-    for(int i=0; i<16; i++){
+    for(int i=0; i<17; i++){
+        sleep(1);
         cout << "\n";
         rotatematrix(R, C, satellite);
     }
