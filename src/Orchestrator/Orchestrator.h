@@ -1,0 +1,10 @@
+#ifndef IOTSECURITY_ORCHESTRATOR_H
+#define IOTSECURITY_ORCHESTRATOR_H
+
+
+class Orchestrator {
+
+};
+
+
+#endif //IOTSECURITY_ORCHESTRATOR_H
