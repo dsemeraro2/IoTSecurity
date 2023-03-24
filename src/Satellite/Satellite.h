@@ -2,28 +2,28 @@
 #define IOTSECURITY_SATELLITE_H
 
 
+#include "../Service/Service.h"
+#define MAXSERVICES 3
+
 class Satellite {
 
 private:
     int id;
     float cpu;
     float ram;
-    //Service services[];
+    //Service services[MAXSERVICES];
 
 public:
-    explicit Satellite(int id); //Constructor
+    Satellite(int id, float cpu, float ram);
 
     int getId() const;
 
-    void setId(int id);
-
     float getCpu() const;
-
-    void setCpu(float cpu);
 
     float getRam() const;
 
-    void setRam(float ram);
+    //const Service *getServices() const;
+
 };
 
 
