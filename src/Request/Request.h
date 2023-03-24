@@ -1,7 +1,7 @@
 #ifndef IOTSECURITY_REQUEST_H
 #define IOTSECURITY_REQUEST_H
 
-#define timeSlot float
+typedef float timeSlot;
 
 class Request {
 
@@ -17,11 +17,11 @@ public:
 
     int getId() const;
 
-    float getTsGenerate() const;
+    timeSlot getTsGenerate() const;
 
-    float getTsDeadline() const;
+    timeSlot getTsDeadline() const;
 
-    float getTsDone() const;
+    timeSlot getTsDone() const;
 
     void generatorRequest();
 

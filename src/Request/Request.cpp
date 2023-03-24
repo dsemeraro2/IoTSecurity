@@ -8,15 +8,15 @@ int Request::getId() const {
     return id;
 }
 
-float Request::getTsGenerate() const {
+timeSlot Request::getTsGenerate() const {
     return tsGenerate;
 }
 
-float Request::getTsDeadline() const {
+timeSlot Request::getTsDeadline() const {
     return tsDeadline;
 }
 
-float Request::getTsDone() const {
+timeSlot Request::getTsDone() const {
     return tsDone;
 }
 
@@ -28,10 +28,12 @@ void Request::generatorRequest() {
 
 }
 
+//Add request in queue
 void Request::addRequest() {
 
 }
 
+//Add done request in a queue
 void Request::oldRequest() {
 
 }
