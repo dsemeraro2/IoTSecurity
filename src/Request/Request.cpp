@@ -1,13 +1,8 @@
 #include "Request.h"
 
 Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone) : id(id), tsGenerate(tsGenerate),
-                                                                                      tsDeadline(tsDeadline), tsDone(tsDone) {
-    this->id = id;
-    this->tsGenerate = tsGenerate;
-    this->tsDeadline = tsDeadline;
-    this->tsDone = 0;
-
-}
+                                                                                      tsDeadline(tsDeadline),
+                                                                                      tsDone(tsDone) {}
 
 int Request::getId() const {
     return id;
@@ -29,13 +24,14 @@ void Request::setTsDone(float tsDone) {
     Request::tsDone = tsDone;
 }
 
-void Request::generatorRequest(){
-
-}
-void Request::addRequest(){
+void Request::generatorRequest() {
 
 }
 
-void Request::oldRequest(){
+void Request::addRequest() {
+
+}
+
+void Request::oldRequest() {
 
 }
