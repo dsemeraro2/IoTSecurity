@@ -1,0 +1,10 @@
+#ifndef IOTSECURITY_REQUEST_H
+#define IOTSECURITY_REQUEST_H
+
+
+class Request {
+
+};
+
+
+#endif //IOTSECURITY_REQUEST_H
