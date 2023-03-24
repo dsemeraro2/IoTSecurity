@@ -1,0 +1,10 @@
+#ifndef IOTSECURITY_CLUSTER_H
+#define IOTSECURITY_CLUSTER_H
+
+
+class Cluster {
+
+};
+
+
+#endif //IOTSECURITY_CLUSTER_H
