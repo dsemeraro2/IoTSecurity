@@ -4,6 +4,26 @@
 
 class Satellite {
 
+private:
+    int id;
+    float cpu;
+    float ram;
+    //Service services[];
+
+public:
+    explicit Satellite(int id); //Constructor
+
+    int getId() const;
+
+    void setId(int id);
+
+    float getCpu() const;
+
+    void setCpu(float cpu);
+
+    float getRam() const;
+
+    void setRam(float ram);
 };
 
 
