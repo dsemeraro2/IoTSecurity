@@ -1,7 +1,7 @@
 #ifndef IOTSECURITY_CLUSTER_H
 #define IOTSECURITY_CLUSTER_H
 
-#define MAXSERVICES 3
+#include <vector>
 #include "../Service/Service.h"
 
 class Cluster {
@@ -9,10 +9,14 @@ class Cluster {
 private:
 
     int id;
-    Service *service[MAXSERVICES];
+    std::vector<Service> services;
 
 public:
-    Cluster(int id, Service **service);
+    Cluster(int id, std::vector<Service> service);
+
+    int getId() const;
+
+    const std::vector<Service> &getServices() const;
 
 };
 

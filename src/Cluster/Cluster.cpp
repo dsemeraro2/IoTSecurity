@@ -1,8 +1,14 @@
 #include "Cluster.h"
 
-Cluster::Cluster(int id, Service **service) : id(id), service(service) {
+Cluster::Cluster(int id, std::vector<Service> services) : id(id), services(services) {
     this->id = id;
-    for(int i=0; i<MAXSERVICES; i++){
-        this->service[i] = service[i];
-    }
+    this->services = services;
+}
+
+int Cluster::getId() const {
+    return id;
+}
+
+const std::vector<Service> &Cluster::getServices() const {
+    return services;
 }
