@@ -1,0 +1,10 @@
+#ifndef IOTSECURITY_SERVICE_H
+#define IOTSECURITY_SERVICE_H
+
+
+class Service {
+
+};
+
+
+#endif //IOTSECURITY_SERVICE_H
