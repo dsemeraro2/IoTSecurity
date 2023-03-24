@@ -2,7 +2,17 @@
 #define IOTSECURITY_CLUSTER_H
 
 
+#include "../Service/Service.h"
+
 class Cluster {
+
+private:
+
+    int id;
+    Service *service[];
+
+public:
+    Cluster(int id, Service **service);
 
 };
 
