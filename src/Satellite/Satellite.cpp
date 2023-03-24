@@ -17,11 +17,8 @@ Satellite::Satellite(int id, float cpu, float ram, Service **services) : id(id),
 
 }
 
-
-
-
 /*
 const Service *Satellite::getServices() const {
     return services;
 }
-*/
+ */
