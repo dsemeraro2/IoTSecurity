@@ -2,8 +2,8 @@
 #define IOTSECURITY_SATELLITE_H
 
 
+#include <vector>
 #include "../Service/Service.h"
-#define MAXSERVICES 3
 
 class Satellite {
 
@@ -11,10 +11,10 @@ private:
     int id;
     float cpu;
     float ram;
-    Service *services[MAXSERVICES];
+    std::vector<Service> services;
 
 public:
-    Satellite(int id, float cpu, float ram, Service **services);
+    Satellite(int id, float cpu, float ram, std::vector<Service> services);
 
     int getId() const;
 
@@ -22,7 +22,7 @@ public:
 
     float getRam() const;
 
-    const Service *getServices() const;
+    const std::vector<Service> &getServices() const;
 
 };
 

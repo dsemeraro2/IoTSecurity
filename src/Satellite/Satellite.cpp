@@ -1,24 +1,27 @@
 #include "Satellite.h"
 
-
-int Satellite::getId() const {
-    return id;
-}
-
-Satellite::Satellite(int id, float cpu, float ram, Service **services) : id(id), cpu(cpu), ram(ram),
+Satellite::Satellite(int id, float cpu, float ram, std::vector<Service> services) : id(id), cpu(cpu), ram(ram),
                                                                          services(services) {
 
     this->id = id;
     this->cpu = cpu;
     this->ram = ram;
-    for (int i = 0; i < MAXSERVICES; i++) {
-        this->services[i] = services[i];
-    }
+    this->services = services;
 
 }
 
-/*
-const Service *Satellite::getServices() const {
+int Satellite::getId() const {
+    return id;
+}
+
+float Satellite::getCpu() const {
+    return cpu;
+}
+
+float Satellite::getRam() const {
+    return ram;
+}
+
+const std::vector<Service> &Satellite::getServices() const {
     return services;
 }
- */
