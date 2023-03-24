@@ -11,10 +11,10 @@ private:
     int id;
     float cpu;
     float ram;
-    //Service services[MAXSERVICES];
+    Service *services[MAXSERVICES];
 
 public:
-    Satellite(int id, float cpu, float ram);
+    Satellite(int id, float cpu, float ram, Service **services);
 
     int getId() const;
 
@@ -22,7 +22,7 @@ public:
 
     float getRam() const;
 
-    //const Service *getServices() const;
+    const Service *getServices() const;
 
 };
 

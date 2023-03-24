@@ -1,7 +1,7 @@
 #ifndef IOTSECURITY_CLUSTER_H
 #define IOTSECURITY_CLUSTER_H
 
-
+#define MAXSERVICES 3
 #include "../Service/Service.h"
 
 class Cluster {
@@ -9,7 +9,7 @@ class Cluster {
 private:
 
     int id;
-    Service *service[];
+    Service *service[MAXSERVICES];
 
 public:
     Cluster(int id, Service **service);
