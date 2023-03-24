@@ -1,0 +1,10 @@
+#ifndef IOTSECURITY_SATELLITE_H
+#define IOTSECURITY_SATELLITE_H
+
+
+class Satellite {
+
+};
+
+
+#endif //IOTSECURITY_SATELLITE_H
