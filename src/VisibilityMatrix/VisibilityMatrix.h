@@ -8,6 +8,17 @@
 
 class VisibilityMatrix {
 
+private:
+    int x,y,z;
+
+public:
+    VisibilityMatrix(int x, int y, int z);
+
+    int getX() const;
+
+    int getY() const;
+
+    int getZ() const;
 };
 
 
