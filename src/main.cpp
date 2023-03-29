@@ -4,6 +4,7 @@
 #define X 5
 #define Y 5
 #define Z 5
+
 int main()
 {
     std::cout << "Ok\n";
