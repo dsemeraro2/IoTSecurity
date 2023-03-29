@@ -29,11 +29,11 @@ void Request::generatorRequest() {
 }
 
 //Add request in queue
-void Request::addRequest() {
-
+void Request::addRequest(std::vector<Request> requests, Request newRequest) {
+    requests.insert(requests.end(), newRequest);
 }
 
 //Add done request in a queue
-void Request::oldRequest() {
-
+void Request::oldRequest(std::vector<Request> oldRequests, Request currentRequest) {
+    oldRequests.insert(oldRequests.end(), currentRequest);
 }

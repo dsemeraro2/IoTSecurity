@@ -1,6 +1,9 @@
 #ifndef IOTSECURITY_REQUEST_H
 #define IOTSECURITY_REQUEST_H
 
+#include <iostream>
+#include <vector>
+
 typedef float timeSlot;
 
 class Request {
@@ -25,9 +28,9 @@ public:
 
     void generatorRequest();
 
-    void addRequest();
+    void addRequest(std::vector<Request> requests, Request newRequest);
 
-    void oldRequest();
+    void oldRequest(std::vector<Request> oldRequests, Request currentRequest);
 };
 
 
