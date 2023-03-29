@@ -1,21 +1,21 @@
 #include <iostream>
 
-int newMatrix(int x, int y, int z) {
+int newMatrix(int n, int m, int t) {
 
-    int visibilityMatrix[x][y][z];
+    int visibilityMatrix[n][m][t];
 
-    for(int i=0; i<x; i++){
+    for(int i=0; i<n; i++){
         //std::cout << "\ni:" << i;
         std::cout << "\nLayer " << i+1;
-        for(int j=0; j<y; j++){
+        for(int j=0; j<m; j++){
             //std::cout << "j:" << j;
             std::cout << "\n";
-            for(int k=0; k<z; k++){
+            for(int k=0; k<t; k++){
                 //std::cout <<  "k:" << k;
                 visibilityMatrix[i][j][k] = i+1;
                 std::cout << visibilityMatrix[i][j][k];
             }
         }
     }
-    return visibilityMatrix[x][y][z];
+    return visibilityMatrix[n][m][t];
 }
