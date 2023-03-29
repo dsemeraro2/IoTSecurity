@@ -1,7 +1,3 @@
-//
-// Created by dany9 on 29/03/2023.
-//
-
 #include "VisibilityMatrix.h"
 
 VisibilityMatrix::VisibilityMatrix(int x, int y, int z) : x(x), y(y), z(z) {}
