@@ -1,7 +1,7 @@
 #include "VisibilityMatrix.h"
 
 VisibilityMatrix::VisibilityMatrix(int n, int m, int t) : n(n), m(m), t(t) {
-    // allocazione dinamica della matrice
+    // Allocazione dinamica della matrice
     data = new int**[n];
     for (int i = 0; i < n; ++i) {
         data[i] = new int*[m];

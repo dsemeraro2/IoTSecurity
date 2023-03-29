@@ -11,7 +11,8 @@ private:
 public:
     VisibilityMatrix(int n, int m, int t);
 
-    // restituisce l'elemento della matrice alle coordinate (n,m,t)
+    // Restituisce l'elemento della matrice alle coordinate (n,m,t)
+    // O per modificare l'elemento ennesimo
     int& operator()(int n, int m, int t) {
         return data[n][m][t];
     }
