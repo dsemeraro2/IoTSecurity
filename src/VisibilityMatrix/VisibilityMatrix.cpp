@@ -46,5 +46,3 @@ void VisibilityMatrix::showMatrix(){
         }
     }
 }
-
-
