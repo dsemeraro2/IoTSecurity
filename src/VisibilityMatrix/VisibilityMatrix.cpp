@@ -8,7 +8,7 @@ VisibilityMatrix::VisibilityMatrix(int n, int m, int t) : n(n), m(m), t(t) {
         for (int j=0; j<m; j++) {
             data[i][j] = new int[t];
             for (int k = 0; k<t; k++) {
-                data[i][j][k] = i+1;
+                data[i][j][k] = 0;
             }
         }
     }
