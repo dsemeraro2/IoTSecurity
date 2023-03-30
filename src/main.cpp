@@ -8,11 +8,11 @@
 
 int main()
 {
-    std::cout << "Prova matrice tridimensionale";
+    std::cout << "Prova matrice tridimensionale\n";
 
     VisibilityMatrix matrix(N,M,T);
-    matrix(2, 2, 2);
 
+    matrix.showMatrix();
 
     return 0;
 }
