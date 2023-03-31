@@ -37,7 +37,7 @@ void VisibilityMatrix::setValue (int x, int y, int z, int value){
 
 void VisibilityMatrix::showMatrix(){
     for(int i=0;i<n;i++){
-        std::cout << "\nLayer" << i;
+        std::cout << "\nT:" << i;
         for(int j=0;j<m;j++){
             std::cout<< "\n";
             for(int k=0;k<t;k++){
