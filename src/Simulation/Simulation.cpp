@@ -11,4 +11,4 @@ float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità
 int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
 int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
 int timeslotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
-int timeslotGenerate = 0; // Timeslot inizio richiesta
+int timeslotGenerate = 0; // Timeslot inizio servizio

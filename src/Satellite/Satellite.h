@@ -24,6 +24,9 @@ public:
 
     const std::vector<Service> &getServices() const;
 
+    void addService();
+
+    void removeService();
 };
 
 

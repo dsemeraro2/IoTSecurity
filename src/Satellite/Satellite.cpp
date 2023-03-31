@@ -18,3 +18,11 @@ float Satellite::getRam() const {
 const std::vector<Service> &Satellite::getServices() const {
     return services;
 }
+
+void Satellite::addService(){
+
+}
+
+void Satellite::removeService(){
+
+}
