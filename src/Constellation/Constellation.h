@@ -1,0 +1,11 @@
+
+#ifndef IOTSECURITY_CONSTELLATION_H
+#define IOTSECURITY_CONSTELLATION_H
+
+
+class Constellation {
+
+};
+
+
+#endif //IOTSECURITY_CONSTELLATION_H

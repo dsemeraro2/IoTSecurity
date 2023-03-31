@@ -24,7 +24,7 @@ void Request::setTsDone(float tsDone) {
     Request::tsDone = tsDone;
 }
 
-std::vector<Request> Request::generatorRequests() {
+void Request::generatorRequests() {
 
     /*std::vector<Request> requests;
 
@@ -34,6 +34,7 @@ std::vector<Request> Request::generatorRequests() {
 
     return requests;
 */
+
 }
 
 //Add request in queue
