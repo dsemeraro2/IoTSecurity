@@ -1,4 +1,5 @@
 #include "Request.h"
+#include "../Simulation/Simulation.h"
 
 Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone) : id(id), tsGenerate(tsGenerate),
                                                                                       tsDeadline(tsDeadline),
@@ -30,7 +31,7 @@ void Request::setTsDone(float tsDone) {
 std::vector<Request> Request::generateRequests(){
     std::vector<Request> requests;
     for (int i = 0; i < 10; i++) {
-        requests.insert(requests.end(), {i, 0, 0, -1});
+        requests.insert(requests.end(), {i, timeslotGenerate, timeslotGenerate + timeslotDeadline, -1});
     }
     return requests;
 }

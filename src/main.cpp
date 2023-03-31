@@ -22,7 +22,6 @@ int main() {
         requests.insert(requests.end(), {i, 0, 1, -1});
     }
 
-
     for (int i = 0; i < 10; i++) {
         std::cout<<"\nRequest: " << requests[i].getId();
     }
