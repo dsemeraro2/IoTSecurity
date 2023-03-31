@@ -1,47 +1,51 @@
 #include "VisibilityMatrix.h"
 
-VisibilityMatrix::VisibilityMatrix(int n, int m, int t) : n(n), m(m), t(t) {
+VisibilityMatrix::VisibilityMatrix(int t, int n, int m) {
+    this->tMax = t;
+    this->nMax = n;
+    this->mMax = m;
     // Allocazione dinamica della matrice tramite il metodo new
     data = new int**[t];
     for (int i=0; i<t; i++) {
-        data[i] = new int*[m];
-        for (int j=0; j<m; j++) {
-            data[i][j] = new int[t];
-            for (int k = 0; k<n; k++) {
+        data[i] = new int*[n];
+        for (int j=0; j<n; j++) {
+            data[i][j] = new int[m];
+            for (int k=0; k<m; k++) {
                 data[i][j][k] = 0;
             }
         }
     }
 }
 
-int VisibilityMatrix::getN() const {
-    return n;
+int VisibilityMatrix::getNMax() const {
+    return nMax;
 }
 
-int VisibilityMatrix::getM() const {
-    return m;
+int VisibilityMatrix::getMMax() const {
+    return mMax;
 }
 
-int VisibilityMatrix::getT() const {
-    return t;
+int VisibilityMatrix::getTMax() const {
+    return tMax;
 }
 
-void VisibilityMatrix::setValue (int x, int y, int z, int value){
+// Set a value a un'elemento della matrice alle coordinate (tMax,nMax,mMax)
+void VisibilityMatrix::setValue (int t, int n, int m, int value){
     // Controlla se gli indici sono validi
-    if (x < 0 || x >= n || y < 0 || y >= m || z < 0 || z >= t) {
+    if (t < 0 || t >= tMax || n < 0 || n >= nMax || m < 0 || m >= mMax) {
         throw std::out_of_range("Indici fuori dal range");
     }
     // Assegna il valore alla posizione specificata
-    data[x][y][z] = value;
+    data[t][n][m] = value;
 }
 
 void VisibilityMatrix::showMatrix(){
-    for(int i=0;i<t;i++){
+    for(int i=0; i<tMax; i++){
         std::cout << "\nT:" << i;
-        for(int j=0;j<n;j++){
+        for(int j=0;j<nMax;j++){
             std::cout<< "\n";
-            for(int k=0;k<m;k++){
-                std::cout << data[i][j][k];
+            for(int k=0;k<mMax;k++){
+                std::cout << data[i][j][k] << " ";
             }
         }
     }

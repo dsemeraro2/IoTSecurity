@@ -6,24 +6,24 @@
 
 class VisibilityMatrix {
 private:
-    int n, m, t;
+    int tMax, nMax, mMax;
     int*** data;
 public:
-    VisibilityMatrix(int n, int m, int t);
+    VisibilityMatrix(int t, int n, int m);
 
-    // Restituisce l'elemento della matrice alle coordinate (n,m,t)
-    int& operator()(int n, int m, int t) {
-        return data[n][m][t];
+    // Restituisce l'elemento della matrice alle coordinate (tMax,nMax,mMax)
+    int& operator()(int t, int n, int m) {
+        return data[t][n][m];
     }
 
-    int getN() const;
+    int getNMax() const;
 
-    int getM() const;
+    int getMMax() const;
 
-    int getT() const;
+    int getTMax() const;
 
-    // Set a value a un'elemento della matrice alle coordinate (n,m,t)
-    void setValue (int x, int y, int z, int value);
+    // Set a value a un'elemento della matrice alle coordinate (tMax,nMax,mMax)
+    void setValue (int t, int n, int m, int value);
 
     // Mostra tutta la matrice
     void showMatrix();
