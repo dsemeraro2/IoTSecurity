@@ -24,7 +24,16 @@ void Request::setTsDone(float tsDone) {
     Request::tsDone = tsDone;
 }
 
+void Request::initialize() {
+
+    for (int i = 0; i < 1000; i++) {
+        generatorRequest();
+    }
+
+}
+
 void Request::generatorRequest() {
+
 
 }
 

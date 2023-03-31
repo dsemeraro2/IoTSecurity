@@ -4,8 +4,8 @@ using namespace std;
 #include "VisibilityMatrix/VisibilityMatrix.h"
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, tMax = durata totale simulazione
-#define N 5
-#define M 6
+#define N 8
+#define M 5
 #define T 5
 
 int main()
@@ -17,7 +17,11 @@ int main()
 
     cout << "Prova matrice tridimensionale\n";
     VisibilityMatrix matrix(timeSlotTotali,N,M);
-    matrix.setValue(0,0,0,1);
+
+    //matrix.setValue(0,0,0,1);
+
+    matrix.initialize();
+
     matrix.showMatrix();
 
     return 0;

@@ -1,7 +1,7 @@
 #include "Satellite.h"
 
 Satellite::Satellite(int id, float cpu, float ram, std::vector<Service> services) : id(id), cpu(cpu), ram(ram),
-                                                                         services(services) {}
+                                                                                    services(services) {}
 
 int Satellite::getId() const {
     return id;

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-typedef float timeSlot;
+typedef int timeSlot;
 
 class Request {
 
@@ -25,6 +25,8 @@ public:
     timeSlot getTsDeadline() const;
 
     timeSlot getTsDone() const;
+
+    void initialize();
 
     void generatorRequest();
 

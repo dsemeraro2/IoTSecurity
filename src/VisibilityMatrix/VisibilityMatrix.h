@@ -28,6 +28,8 @@ public:
     // Mostra tutta la matrice
     void showMatrix();
 
+    void initialize();
+
 };
 
 
