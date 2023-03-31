@@ -26,9 +26,7 @@ public:
 
     timeSlot getTsDone() const;
 
-    void initialize();
-
-    void generatorRequest();
+    std::vector<Request> generatorRequests();
 
     void addRequest(std::vector<Request> requests, Request newRequest);
 

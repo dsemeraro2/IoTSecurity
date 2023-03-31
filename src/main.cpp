@@ -15,6 +15,7 @@ int main()
     float timeSlotDuration = durataRivoluzione/M; //Intervallo durata visibilità di M satelliti
     int timeSlotTotali = ceil(simulation/timeSlotDuration);
 
+
     cout << "Prova matrice tridimensionale\n";
     VisibilityMatrix matrix(timeSlotTotali,N,M);
 

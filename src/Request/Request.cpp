@@ -24,17 +24,16 @@ void Request::setTsDone(float tsDone) {
     Request::tsDone = tsDone;
 }
 
-void Request::initialize() {
+std::vector<Request> Request::generatorRequests() {
+
+    /*std::vector<Request> requests;
 
     for (int i = 0; i < 1000; i++) {
-        generatorRequest();
+        Request::addRequest(requests, {i, 0,1,-1});
     }
 
-}
-
-void Request::generatorRequest() {
-
-
+    return requests;
+*/
 }
 
 //Add request in queue
