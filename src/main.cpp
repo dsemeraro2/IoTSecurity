@@ -1,26 +1,21 @@
 using namespace std;
+
 #include <iostream>
 #include <cmath>
 #include "VisibilityMatrix/VisibilityMatrix.h"
 #include "Request/Request.h"
+#include "Simulation/Simulation.h"
 
-//n*m*tMax dove n = numero cluster, m = numero leo satellite, tMax = durata totale simulazione
-#define N 8
-#define M 5
-#define T 5
+int main() {
 
-int main()
-{
-    int simulationTime = 24 * 60 * 60; // Durata totale della simulazione in secondi
-    int durataRivoluzione = 94 * 60; // Durata rivoluzione di 1 satellite in secondi
-    float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità di M satelliti in secondi
-    int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
-    int simulationTimeSlotDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
+    //cout << "\nsimulationTime: " << simulationTime << " seconds";
+    //cout << "\ndurataRivoluzione: " << durataRivoluzione << " seconds";
+    //cout << "\ntimeSlotDuration: " << timeSlotDuration << " seconds";
+    cout << "\ntimeSlotTotali: " << timeSlotTotali << " time slot";
+    //cout << "\nsimulationDeadline: " << simulationDeadline << " seconds";
+    cout << "\ntimeslotDeadline: " << timeslotDeadline << " time slot";
 
-    int tsDeadline = ceil(simulationTimeSlotDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
 
-    cout<<"\ntimeSlotTotali:"<<timeSlotTotali;
-    cout<<"\ntsDeadline:"<<tsDeadline;
 
     /*
     std::vector<Request> requests;
