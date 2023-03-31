@@ -1,7 +1,5 @@
 #include "Request.h"
 
-Request::Request() {}
-
 Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone) : id(id), tsGenerate(tsGenerate),
                                                                                       tsDeadline(tsDeadline),
                                                                                       tsDone(tsDone) {

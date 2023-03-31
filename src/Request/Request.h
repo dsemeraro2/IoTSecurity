@@ -14,8 +14,6 @@ class Request {
     timeSlot tsDone{};
 
 public:
-    Request();
-
     Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone);
 
     void setTsDone(float tsDone);
