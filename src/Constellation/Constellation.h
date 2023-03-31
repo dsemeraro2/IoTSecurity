@@ -4,7 +4,10 @@
 
 
 class Constellation {
-
+private:
+    int mMax;
+public:
+    explicit Constellation(int mMax);
 };
 
 
