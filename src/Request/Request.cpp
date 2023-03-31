@@ -1,8 +1,13 @@
 #include "Request.h"
 
+Request::Request() {}
+
 Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone) : id(id), tsGenerate(tsGenerate),
                                                                                       tsDeadline(tsDeadline),
-                                                                                      tsDone(tsDone) {}
+                                                                                      tsDone(tsDone) {
+
+
+}
 
 int Request::getId() const {
     return id;
@@ -24,25 +29,18 @@ void Request::setTsDone(float tsDone) {
     Request::tsDone = tsDone;
 }
 
-void Request::generatorRequests() {
-
-    /*std::vector<Request> requests;
-
-    for (int i = 0; i < 1000; i++) {
-        Request::addRequest(requests, {i, 0,1,-1});
+std::vector<Request> Request::generateRequests(){
+    std::vector<Request> requests;
+    for (int i = 0; i < 10; i++) {
+        requests.insert(requests.end(), {i, 0, 1, -1});
     }
-
     return requests;
-*/
-
 }
 
-//Add request in queue
-void Request::addRequest(std::vector<Request> requests, Request newRequest) {
-    requests.insert(requests.end(), newRequest);
+void Request::showRequests(std::vector<Request> requests) {
+    for (int i = 0; i < 10; i++) {
+        std::cout<<"\nRequest: " << requests[i].id << " tsGenerate: "<< requests[i].tsGenerate
+                 << " tsDeadline: "<< requests[i].tsDeadline << " tsDone: "<< requests[i].tsDone;
+    }
 }
 
-//Add done request in a queue
-void Request::oldRequest(std::vector<Request> oldRequests, Request currentRequest) {
-    oldRequests.insert(oldRequests.end(), currentRequest);
-}
