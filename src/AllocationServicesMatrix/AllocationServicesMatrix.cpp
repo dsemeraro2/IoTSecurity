@@ -55,10 +55,8 @@ void AllocationServicesMatrix::initialize() {
 
     for (int i = 0; i < tMax; i++) {
         for (int j = 0; j < nMax; j++) {
-            //for (int k = 0; k < mMax; k++) {
             int k = (j + i) % mMax;
             data[i][j][k] = 1;
-            //}
         }
     }
 
