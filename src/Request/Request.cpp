@@ -30,7 +30,7 @@ void Request::setTsDone(float tsDone) {
 std::vector<Request> Request::generateRequests(){
     std::vector<Request> requests;
     for (int i = 0; i < 10; i++) {
-        requests.insert(requests.end(), {i, 0, 1, -1});
+        requests.insert(requests.end(), {i, 0, 0, -1});
     }
     return requests;
 }

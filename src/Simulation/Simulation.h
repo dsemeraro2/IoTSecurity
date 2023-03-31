@@ -1,22 +1,17 @@
-using namespace std;
-
-#include <iostream>
-#include <cmath>
-
 #ifndef IOTSECURITY_SIMULATION_H
 #define IOTSECURITY_SIMULATION_H
 
+#include <cmath>
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, tMax = durata totale simulazione
-#define N 8
-#define M 5
-#define T 5
+extern int N;
+extern int M;
+extern int T;
 
-int simulationTime = 24 * 60 * 60; // Durata totale della simulazione in secondi
-int durataRivoluzione = 94 * 60; // Durata rivoluzione di 1 satellite in secondi
-float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità di M satelliti in secondi
-int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
-
-int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
-int timeslotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
+extern int simulationTime; // Durata totale della simulazione in secondi
+extern int durataRivoluzione; // Durata rivoluzione di 1 satellite in secondi
+extern float timeSlotDuration; // Intervallo durata visibilità di M satelliti in secondi
+extern int timeSlotTotali; // Numero totali timeslot
+extern int simulationDeadline; // Durata totale di un servizio in secondi
+extern int timeslotDeadline; // Timeslot entro cui eseguire un servizio
 
 #endif //IOTSECURITY_SIMULATION_H
