@@ -3,6 +3,7 @@
 
 
 #include "../Constellation/Constellation.h"
+#include "../Simulation/Simulation.h"
 
 class Solution {
 private:
@@ -11,6 +12,7 @@ private:
 
 public:
     Solution(int timeSlot, const std::vector<Constellation> &constellation);
+    //std::vector<Solution> getTimeSlotWindow(int timeSlotInitial);
 };
 
 

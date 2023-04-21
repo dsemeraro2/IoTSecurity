@@ -13,7 +13,7 @@ extern int durataRivoluzione; // Durata rivoluzione di 1 satellite in secondi
 extern float timeSlotDuration; // Intervallo durata visibilità di M satelliti in secondi
 extern int timeSlotTotali; // Numero totali timeslot
 extern int simulationDeadline; // Durata totale di un servizio in secondi
-extern int timeslotDeadline; // Timeslot entro cui eseguire un servizio
-extern int timeslotGenerate; // Timeslot inizio richiesta
+extern int timeSlotDeadline; // Timeslot entro cui eseguire un servizio
+extern int timeSlotGenerate; // Timeslot inizio richiesta
 
 #endif //IOTSECURITY_SIMULATION_H

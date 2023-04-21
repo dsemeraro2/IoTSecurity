@@ -13,7 +13,7 @@ int main() {
     //cout << "\ntimeSlotDuration: " << timeSlotDuration << " seconds";
     cout << "\ntimeSlotTotali: " << timeSlotTotali << " time slot";
     //cout << "\nsimulationDeadline: " << simulationDeadline << " seconds";
-    cout << "\ntimeslotDeadline: " << timeslotDeadline << " time slot";
+    cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
 
     /*
     std::vector<Request> requests;
