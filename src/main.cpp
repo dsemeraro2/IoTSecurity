@@ -7,6 +7,10 @@ using namespace std;
 #include "Simulation/Simulation.h"
 #include "Cluster/Cluster.h"
 
+Solution generateSolution() {
+    return Solution(timeSlotTotali);
+}
+
 int main() {
 
     //cout << "\nsimulationTime: " << simulationTime << " seconds";
@@ -17,9 +21,10 @@ int main() {
     //cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
 
     std::vector<Cluster> clusters = listOfClusters();
+
     std::vector<Service> services = listOfServices();
 
-
+    Solution solution = generateSolution();
 
     return 0;
 }

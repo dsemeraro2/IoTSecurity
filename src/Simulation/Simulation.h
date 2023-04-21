@@ -27,6 +27,6 @@ extern std::vector<Service> listOfServices();
 
 extern Service getServiceById(std::vector<Service> listOfServices, int id);
 
-extern Solution generateSolution();
+//extern Solution generateSolution();
 
 #endif //IOTSECURITY_SIMULATION_H

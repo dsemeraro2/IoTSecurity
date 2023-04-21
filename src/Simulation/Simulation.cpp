@@ -36,8 +36,3 @@ std::vector<Service> listOfServices(){
 Service getServiceById(std::vector<Service> listOfServices, int id){
     return listOfServices[id];
 }
-
-Solution generateSolution() {
-    return Solution(timeSlotTotali);
-
-}
