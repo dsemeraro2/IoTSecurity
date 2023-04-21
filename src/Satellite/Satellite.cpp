@@ -1,12 +1,12 @@
 #include "Satellite.h"
 
-Satellite::Satellite(int id, float cpu, float ram, float cpuUsed, float ramUsed, std::vector<Service> services) {
+Satellite::Satellite(int id, float cpu, float ram) {
     this->id = id;
     this->cpu = cpu;
     this->ram = ram;
     this->cpuUsed = cpu;
     this->ramUsed = ram;
-    this->services = services;
+    //this->services;
 }
 
 int Satellite::getId() const {

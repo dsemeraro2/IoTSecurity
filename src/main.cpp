@@ -6,6 +6,7 @@ using namespace std;
 #include "Request/Request.h"
 #include "Simulation/Simulation.h"
 #include "Cluster/Cluster.h"
+#include "AllocationServicesMatrix/AllocationServicesMatrix.h"
 
 Solution generateSolution() {
     return Solution(timeSlotTotali);
@@ -25,6 +26,10 @@ int main() {
     std::vector<Service> services = listOfServices();
 
     Solution solution = generateSolution();
+
+    AllocationServicesMatrix allocationServicesMatrix{T,N,M};
+
+    allocationServicesMatrix.initialize(&solution);
 
     return 0;
 }

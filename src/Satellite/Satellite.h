@@ -16,7 +16,7 @@ private:
     std::vector<Service> services;
 
 public:
-    Satellite(int id, float cpu, float ram, float cpuUsed, float ramUsed, std::vector<Service> services);
+    Satellite(int id, float cpu, float ram);
 
     int getId() const;
 
