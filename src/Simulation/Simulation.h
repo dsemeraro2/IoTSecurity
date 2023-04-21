@@ -2,6 +2,8 @@
 #define IOTSECURITY_SIMULATION_H
 
 #include <cmath>
+#include <vector>
+#include "../Service/Service.h"
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, tMax = durata totale simulazione
 extern int N;
@@ -15,5 +17,8 @@ extern int timeSlotTotali; // Numero totali timeslot
 extern int simulationDeadline; // Durata totale di un servizio in secondi
 extern int timeSlotDeadline; // Timeslot entro cui eseguire un servizio
 extern int timeSlotGenerate; // Timeslot inizio richiesta
+
+extern std::vector<Service> listOfServices();
+extern Service getServiceById(std::vector<Service> listOfServices, int id);
 
 #endif //IOTSECURITY_SIMULATION_H

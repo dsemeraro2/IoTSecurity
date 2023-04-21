@@ -12,6 +12,7 @@ private:
 public:
     std::vector<Constellation> constellations;
     Solution(int timeSlot, const std::vector<Constellation> &constellation);
+    const Constellation getConstellation(int index) const;
     //std::vector<Solution> getTimeSlotWindow(int timeSlotInitial);
 };
 

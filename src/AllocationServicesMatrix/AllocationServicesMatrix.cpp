@@ -57,7 +57,7 @@ void AllocationServicesMatrix::initialize(Solution solution) {
         for (int j = 0; j < nMax; j++) {
             int k = (j + i) % mMax;
             data[i][j][k] = 1;
-            solution.constellations[i].satellaties[k].addService();
+            solution.constellations[i].satellaties[k].addService(getServiceById(listOfServices(),j));
 
         }
     }

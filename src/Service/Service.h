@@ -23,6 +23,7 @@ public:
     float getCpuUsed() const;
 
     float getRamUsed() const;
+
 };
 
 
