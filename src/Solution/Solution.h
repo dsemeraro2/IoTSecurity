@@ -1,0 +1,10 @@
+#ifndef IOTSECURITY_SOLUTION_H
+#define IOTSECURITY_SOLUTION_H
+
+
+class Solution {
+
+};
+
+
+#endif //IOTSECURITY_SOLUTION_H
