@@ -66,3 +66,13 @@ void Satellite::removeService(int indexService){
 
 }
 
+bool Satellite::checkService(int idService){
+
+    for(int i=0; i<this->services.size(); i++){
+        if(this->services[i].getId() == idService)
+            return true;
+    }
+
+    return false;
+}
+

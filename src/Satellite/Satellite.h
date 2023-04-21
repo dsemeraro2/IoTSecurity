@@ -37,6 +37,8 @@ public:
     bool addService(Service service);
 
     void removeService(int indexService);
+
+    bool checkService(int indexService);
 };
 
 
