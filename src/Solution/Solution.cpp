@@ -1,6 +1,6 @@
 #include "Solution.h"
 
-Solution::Solution(int timeSlot, const std::vector<Constellation> &constellation) {
+Solution::Solution(int timeSlot, const std::vector<Constellation> &constellations) {
     this->timeSlot = timeSlot;
-    this->constellation = constellation;
+    this->constellations = constellations;
 }
