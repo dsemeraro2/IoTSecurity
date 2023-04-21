@@ -10,7 +10,7 @@ private:
     int mMax;
 public:
     std::vector<Satellite> satellaties;
-    Constellation(int mMax, const std::vector<Satellite> &satellaties);
+    Constellation(int mMax);
 };
 
 

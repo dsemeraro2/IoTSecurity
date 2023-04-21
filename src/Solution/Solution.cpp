@@ -1,8 +1,11 @@
 #include "Solution.h"
 
-Solution::Solution(int timeSlot, const std::vector<Constellation> &constellations) {
+Solution::Solution(int timeSlot) {
     this->timeSlot = timeSlot;
-    this->constellations = constellations;
+    for(int i=0; i<timeSlot; i++){
+        Constellation constellation{M};
+        this->constellations.push_back(constellation);
+    }
 }
 
 const Constellation Solution::getConstellation(int index) const {

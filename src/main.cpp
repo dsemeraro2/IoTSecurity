@@ -16,7 +16,10 @@ int main() {
     //cout << "\nsimulationDeadline: " << simulationDeadline << " seconds";
     //cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
 
-    std::vector<Cluster> clusters = listOfCluster();
+    std::vector<Cluster> clusters = listOfClusters();
+    std::vector<Service> services = listOfServices();
+
+
 
     return 0;
 }
