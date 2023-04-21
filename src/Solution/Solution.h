@@ -2,8 +2,15 @@
 #define IOTSECURITY_SOLUTION_H
 
 
-class Solution {
+#include "../Constellation/Constellation.h"
 
+class Solution {
+private:
+    int timeSlot;
+    std::vector<Constellation> constellations;
+
+public:
+    Solution(int timeSlot, const std::vector<Constellation> &constellation);
 };
 
 
