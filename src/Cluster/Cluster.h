@@ -7,16 +7,12 @@
 class Cluster {
 
 private:
-
     int id;
-    std::vector<Service> services;
 
 public:
-    Cluster(int id, std::vector<Service> service);
+    Cluster(int id);
 
     int getId() const;
-
-    const std::vector<Service> &getServices() const;
 
 };
 

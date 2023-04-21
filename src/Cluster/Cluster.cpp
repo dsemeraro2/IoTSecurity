@@ -1,11 +1,7 @@
 #include "Cluster.h"
 
-Cluster::Cluster(int id, std::vector<Service> services) : id(id), services(services) {}
+Cluster::Cluster(int id) : id(id) {}
 
 int Cluster::getId() const {
     return id;
-}
-
-const std::vector<Service> &Cluster::getServices() const {
-    return services;
 }

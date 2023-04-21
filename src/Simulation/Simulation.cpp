@@ -13,6 +13,16 @@ int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
 int timeSlotGenerate = 0; // Timeslot inizio servizio
 
+std::vector<Cluster> listOfCluster(){
+    std::vector<Cluster> clusters;
+
+    for(int i=0; i<N; i++){
+        clusters.push_back({i});
+    }
+
+    return clusters;
+};
+
 std::vector<Service> listOfServices(){
     std::vector<Service> services;
 
