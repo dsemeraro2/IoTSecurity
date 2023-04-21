@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "../Service/Service.h"
 
 typedef int timeSlot;
 
@@ -12,9 +13,10 @@ class Request {
     timeSlot tsGenerate{};
     timeSlot tsDeadline{};
     timeSlot tsDone{};
+    int idService;
 
 public:
-    Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone);
+    Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService);
 
     void setTsDone(float tsDone);
 

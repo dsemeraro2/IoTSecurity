@@ -8,8 +8,8 @@
 class Constellation {
 private:
     int mMax;
-    std::vector<Satellite> satellaties;
 public:
+    std::vector<Satellite> satellaties;
     Constellation(int mMax, const std::vector<Satellite> &satellaties);
 };
 

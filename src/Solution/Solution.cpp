@@ -5,6 +5,10 @@ Solution::Solution(int timeSlot, const std::vector<Constellation> &constellation
     this->constellations = constellations;
 }
 
+const Constellation Solution::getConstellation(int index) const {
+    return constellations[index];
+}
+
 /*std::vector<Solution> Solution::getTimeSlotWindow(int timeSlotInitial){
     int timeSlotEnd = timeSlotInitial + timeSlotDeadline;
 

@@ -8,9 +8,9 @@
 class Solution {
 private:
     int timeSlot;
-    std::vector<Constellation> constellations;
 
 public:
+    std::vector<Constellation> constellations;
     Solution(int timeSlot, const std::vector<Constellation> &constellation);
     //std::vector<Solution> getTimeSlotWindow(int timeSlotInitial);
 };

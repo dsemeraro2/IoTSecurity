@@ -21,6 +21,22 @@ float Satellite::getRam() const {
     return ram;
 }
 
+float Satellite::getCpuUsed() const {
+    return cpuUsed;
+}
+
+float Satellite::getRamUsed() const {
+    return ramUsed;
+}
+
+void Satellite::setCpuUsed(float cpuUsed) {
+    Satellite::cpuUsed = cpuUsed;
+}
+
+void Satellite::setRamUsed(float ramUsed) {
+    Satellite::ramUsed = ramUsed;
+}
+
 const std::vector<Service> &Satellite::getServices() const {
     return services;
 }
@@ -50,18 +66,3 @@ void Satellite::removeService(int indexService){
 
 }
 
-float Satellite::getCpuUsed() const {
-    return cpuUsed;
-}
-
-float Satellite::getRamUsed() const {
-    return ramUsed;
-}
-
-void Satellite::setCpuUsed(float cpuUsed) {
-    Satellite::cpuUsed = cpuUsed;
-}
-
-void Satellite::setRamUsed(float ramUsed) {
-    Satellite::ramUsed = ramUsed;
-}

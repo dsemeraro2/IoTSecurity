@@ -2,6 +2,7 @@
 #define IOTSECURITY_ALLOCATIONSERVICESMATRIX_H
 
 #include <iostream>
+#include "../Solution/Solution.h"
 
 class AllocationServicesMatrix {
 private:
@@ -27,7 +28,7 @@ public:
     // Mostra tutta la matrice
     void showMatrix();
 
-    void initialize();
+    void initialize(Solution solution);
 
 };
 
