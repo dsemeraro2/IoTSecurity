@@ -1,6 +1,6 @@
 #include "Simulation.h"
 
-//n*m*tMax dove n = numero cluster, m = numero leo satellite, tMax = durata totale simulazione
+//n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
 int N = 8;
 int M = 5;
 int T = 5;
