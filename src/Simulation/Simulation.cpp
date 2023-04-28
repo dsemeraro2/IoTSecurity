@@ -45,7 +45,7 @@ Service getServiceById(std::vector<Service> listOfServices, int id){
     return listOfServices[id];
 }
 
-int objectiveFunction (std::vector<Request> requests, std::vector<Service> services, Solution solution, VisibilityMatrix visibilityMatrix, int deadlineTimeSlot){
+int objectiveFunction (std::vector<Request> requests, std::vector<Service> services, Solution solution, VisibilityMatrix visibilityMatrix){
 
     int f = 0; //Ritardo da minimizzare
 
@@ -53,6 +53,7 @@ int objectiveFunction (std::vector<Request> requests, std::vector<Service> servi
 
         Service tempService = getServiceById(services,requests[i].getIdService());
         int initialTimeSlot = requests[i].getTsGenerate(); //TODO: aggiungere il delay di esecuzione
+        int deadlineTimeSlot =  requests[i].getTsDeadline();
 
         for(int j=initialTimeSlot; j<deadlineTimeSlot; j++){
 
