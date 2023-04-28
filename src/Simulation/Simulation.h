@@ -21,14 +21,12 @@ extern int simulationDeadline; // Durata totale di un servizio in secondi
 extern int timeSlotDeadline; // Timeslot entro cui eseguire un servizio
 extern int timeSlotGenerate; // Timeslot inizio richiesta
 
-//Define the list of the vectors
+//Define the list of the differents vectors
+std::vector<Cluster> initializeClusters();
+std::vector<Service> initializeServices();
+std::vector<Request> initializeRequests();
 
-extern std::vector<Cluster> initializeClusters();
-extern std::vector<Service> initializeServices();
-
-extern Service getServiceById(std::vector<Service> listOfServices, int id);
-
-extern std::vector<Request> initializeRequests();
+Service getServiceById(std::vector<Service> listOfServices, int id);
 
 //extern Solution generateSolution();
 

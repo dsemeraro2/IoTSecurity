@@ -32,14 +32,14 @@ std::vector<Service> initializeServices(){
     return services;
 };
 
-Service getServiceById(std::vector<Service> listOfServices, int id){
-    return listOfServices[id];
-}
-
 std::vector<Request> initializeRequests(){
     std::vector<Request> requests;
     for (int i = 0; i < 10; i++) {
         requests.insert(requests.end(), {i, i, i + timeSlotDeadline, -1, i});
     }
     return requests;
+}
+
+Service getServiceById(std::vector<Service> listOfServices, int id){
+    return listOfServices[id];
 }
