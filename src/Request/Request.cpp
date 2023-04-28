@@ -1,9 +1,13 @@
 #include "Request.h"
 #include "../Simulation/Simulation.h"
 
-Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService) : id(id), tsGenerate(tsGenerate),
-                                                                                      tsDeadline(tsDeadline),
-                                                                                      tsDone(tsDone), idService(idService){
+Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService) : id(id), tsGenerate(
+        tsGenerate),
+                                                                                                     tsDeadline(
+                                                                                                             tsDeadline),
+                                                                                                     tsDone(tsDone),
+                                                                                                     idService(
+                                                                                                             idService) {
 
 
 }
@@ -34,8 +38,8 @@ int Request::getIdService() const {
 
 void Request::showRequests(std::vector<Request> requests) {
     for (int i = 0; i < 10; i++) {
-        std::cout<<"\nRequest: " << requests[i].id << " tsGenerate: "<< requests[i].tsGenerate
-                 << " tsDeadline: "<< requests[i].tsDeadline << " tsDone: "<< requests[i].tsDone;
+        std::cout << "\nRequest: " << requests[i].id << " tsGenerate: " << requests[i].tsGenerate
+                  << " tsDeadline: " << requests[i].tsDeadline << " tsDone: " << requests[i].tsDone;
     }
 }
 

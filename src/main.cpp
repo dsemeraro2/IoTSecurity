@@ -29,7 +29,7 @@ int main() {
 
     std::vector<Request> request = initializeRequests();
 
-    AllocationServicesMatrix allocationServicesMatrix{T,N,M};
+    AllocationServicesMatrix allocationServicesMatrix{T, N, M};
 
     allocationServicesMatrix.initialize(&solution);
 

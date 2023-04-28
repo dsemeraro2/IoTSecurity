@@ -2,7 +2,7 @@
 
 Solution::Solution(int timeSlot) {
     this->timeSlot = timeSlot;
-    for(int i=0; i<timeSlot; i++){
+    for (int i = 0; i < timeSlot; i++) {
         Constellation constellation{M};
         this->constellations.push_back(constellation);
     }

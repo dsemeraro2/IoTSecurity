@@ -24,7 +24,9 @@ extern int timeSlotGenerate; // Timeslot inizio richiesta
 
 //Define the list of the differents vectors
 std::vector<Cluster> initializeClusters();
+
 std::vector<Service> initializeServices();
+
 std::vector<Request> initializeRequests();
 
 Service getServiceById(std::vector<Service> listOfServices, int id);
@@ -32,6 +34,7 @@ Service getServiceById(std::vector<Service> listOfServices, int id);
 //extern Solution generateSolution();
 
 //Funzione obiettivo
-int objectiveFunction (std::vector<Request> requests, std::vector<Service> services, Solution solution, VisibilityMatrix visibilityMatrix);
+int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
+                      VisibilityMatrix visibilityMatrix);
 
 #endif //IOTSECURITY_SIMULATION_H

@@ -41,12 +41,12 @@ const std::vector<Service> &Satellite::getServices() const {
     return services;
 }
 
-bool Satellite::addService(Service service){
+bool Satellite::addService(Service service) {
 
-    float cpuRimanente = this->getCpuUsed()-service.getCpuUsed();
-    float ramRimanente = this->getRamUsed()-service.getRamUsed();
+    float cpuRimanente = this->getCpuUsed() - service.getCpuUsed();
+    float ramRimanente = this->getRamUsed() - service.getRamUsed();
 
-    if(cpuRimanente >= 0 && ramRimanente >= 0){
+    if (cpuRimanente >= 0 && ramRimanente >= 0) {
         setCpuUsed(cpuRimanente);
         setRamUsed(ramRimanente);
         this->services.push_back(service);
@@ -57,19 +57,19 @@ bool Satellite::addService(Service service){
 
 }
 
-void Satellite::removeService(int indexService){
+void Satellite::removeService(int indexService) {
 
-    this->setCpuUsed(this->getCpuUsed()+this->services[indexService].getCpuUsed());
-    this->setRamUsed(this->getRamUsed()+this->services[indexService].getRamUsed());
+    this->setCpuUsed(this->getCpuUsed() + this->services[indexService].getCpuUsed());
+    this->setRamUsed(this->getRamUsed() + this->services[indexService].getRamUsed());
 
-    this->services.erase(this->services.begin()+indexService);
+    this->services.erase(this->services.begin() + indexService);
 
 }
 
-bool Satellite::checkService(int idService){
+bool Satellite::checkService(int idService) {
 
-    for(int i=0; i<this->services.size(); i++){
-        if(this->services[i].getId() == idService)
+    for (int i = 0; i < this->services.size(); i++) {
+        if (this->services[i].getId() == idService)
             return true;
     }
 

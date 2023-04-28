@@ -27,7 +27,7 @@ public:
     int getTMax() const;
 
     // Set a value a un'elemento della matrice alle coordinate (tMax,nMax,mMax)
-    void setValue (int t, int n, int m, int value);
+    void setValue(int t, int n, int m, int value);
 
     // Mostra tutta la matrice
     void showMatrix();

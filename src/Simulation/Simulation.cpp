@@ -13,27 +13,27 @@ int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali t
 int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
 
-std::vector<Cluster> initializeClusters(){
+std::vector<Cluster> initializeClusters() {
     std::vector<Cluster> clusters;
 
-    for(int i=0; i<N; i++){
+    for (int i = 0; i < N; i++) {
         clusters.push_back({i});
     }
 
     return clusters;
 };
 
-std::vector<Service> initializeServices(){
+std::vector<Service> initializeServices() {
     std::vector<Service> services;
 
-    for(int i=0; i<N; i++){
+    for (int i = 0; i < N; i++) {
         services.push_back({i, "AA", 10, 10});
     }
 
     return services;
 };
 
-std::vector<Request> initializeRequests(){
+std::vector<Request> initializeRequests() {
     std::vector<Request> requests;
     for (int i = 0; i < 10; i++) {
         requests.insert(requests.end(), {i, i, i + timeSlotDeadline, -1, i});
@@ -41,31 +41,32 @@ std::vector<Request> initializeRequests(){
     return requests;
 }
 
-Service getServiceById(std::vector<Service> listOfServices, int id){
+Service getServiceById(std::vector<Service> listOfServices, int id) {
     return listOfServices[id];
 }
 
-int objectiveFunction (std::vector<Request> requests, std::vector<Service> services, Solution solution, VisibilityMatrix visibilityMatrix){
+int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
+                      VisibilityMatrix visibilityMatrix) {
 
     int f = 0; //Ritardo da minimizzare
 
-    for(int i=0; i<requests.size(); i++){
+    for (int i = 0; i < requests.size(); i++) {
 
-        Service tempService = getServiceById(services,requests[i].getIdService());
+        Service tempService = getServiceById(services, requests[i].getIdService());
         int initialTimeSlot = requests[i].getTsGenerate(); //TODO: aggiungere il delay di esecuzione
-        int deadlineTimeSlot =  requests[i].getTsDeadline();
+        int deadlineTimeSlot = requests[i].getTsDeadline();
 
-        for(int j=initialTimeSlot; j<deadlineTimeSlot; j++){
+        for (int j = initialTimeSlot; j < deadlineTimeSlot; j++) {
 
-            for(int k=0; k<solution.constellations[j].satellaties.size(); k++){
+            for (int k = 0; k < solution.constellations[j].satellaties.size(); k++) {
 
                 std::vector<Service> listServicesSatellite = solution.constellations[j].satellaties[k].getServices();
 
-                for(int m=0; m<listServicesSatellite.size(); m++){
+                for (int m = 0; m < listServicesSatellite.size(); m++) {
 
-                    if(listServicesSatellite[m].getId() == tempService.getId()){
-                        if(visibilityMatrix(j, tempService.getId(), k) == 1){
-                            f = f + (j-initialTimeSlot);
+                    if (listServicesSatellite[m].getId() == tempService.getId()) {
+                        if (visibilityMatrix(j, tempService.getId(), k) == 1) {
+                            f = f + (j - initialTimeSlot);
                         }
                     }
 
