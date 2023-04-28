@@ -4,6 +4,10 @@
 #include <iostream>
 #include <vector>
 
+
+//tMax = timeSlot
+//nMax = cluster = servizio
+//mMax = satellite
 class VisibilityMatrix {
 private:
     int tMax, nMax, mMax;

@@ -30,4 +30,7 @@ Service getServiceById(std::vector<Service> listOfServices, int id);
 
 //extern Solution generateSolution();
 
+//Funzione obiettivo
+int objectiveFunction (std::vector<Request> requests, std::vector<Service> services, Solution solution, int deadlineTimeSlot);
+
 #endif //IOTSECURITY_SIMULATION_H

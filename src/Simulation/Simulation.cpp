@@ -1,4 +1,5 @@
 #include "Simulation.h"
+#include "../VisibilityMatrix/VisibilityMatrix.h"
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
 int N = 8;
@@ -42,4 +43,35 @@ std::vector<Request> initializeRequests(){
 
 Service getServiceById(std::vector<Service> listOfServices, int id){
     return listOfServices[id];
+}
+
+int objectiveFunction (std::vector<Request> requests, std::vector<Service> services, Solution solution, VisibilityMatrix visibilityMatrix, int deadlineTimeSlot){
+
+    int f = 0; //Ritardo da minimizzare
+
+    for(int i=0; i<requests.size(); i++){
+
+        Service tempService = getServiceById(services,requests[i].getIdService());
+        int initialTimeSlot = requests[i].getTsGenerate(); //TODO: aggiungere il delay di esecuzione
+
+        for(int j=initialTimeSlot; j<deadlineTimeSlot; j++){
+
+            for(int k=0; k<solution.constellations[j].satellaties.size(); k++){
+
+                std::vector<Service> listServicesSatellite = solution.constellations[j].satellaties[k].getServices();
+
+                for(int m=0; m<listServicesSatellite.size(); m++){
+
+                    if(listServicesSatellite[m].getId() == tempService.getId()){
+                        if(visibilityMatrix(j, tempService.getId(), k) == 1){
+                            f = f + (j-initialTimeSlot);
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    return f;
 }

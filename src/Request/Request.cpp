@@ -28,6 +28,10 @@ void Request::setTsDone(float tsDone) {
     Request::tsDone = tsDone;
 }
 
+int Request::getIdService() const {
+    return idService;
+}
+
 void Request::showRequests(std::vector<Request> requests) {
     for (int i = 0; i < 10; i++) {
         std::cout<<"\nRequest: " << requests[i].id << " tsGenerate: "<< requests[i].tsGenerate
