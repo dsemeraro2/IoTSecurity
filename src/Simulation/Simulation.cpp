@@ -11,9 +11,8 @@ float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità
 int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
 int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
-int timeSlotGenerate = 0; // Timeslot inizio servizio
 
-std::vector<Cluster> listOfClusters(){
+std::vector<Cluster> initializeClusters(){
     std::vector<Cluster> clusters;
 
     for(int i=0; i<N; i++){
@@ -23,7 +22,7 @@ std::vector<Cluster> listOfClusters(){
     return clusters;
 };
 
-std::vector<Service> listOfServices(){
+std::vector<Service> initializeServices(){
     std::vector<Service> services;
 
     for(int i=0; i<N; i++){
@@ -35,4 +34,12 @@ std::vector<Service> listOfServices(){
 
 Service getServiceById(std::vector<Service> listOfServices, int id){
     return listOfServices[id];
+}
+
+std::vector<Request> initializeRequests(){
+    std::vector<Request> requests;
+    for (int i = 0; i < 10; i++) {
+        requests.insert(requests.end(), {i, i, i + timeSlotDeadline, -1, i});
+    }
+    return requests;
 }

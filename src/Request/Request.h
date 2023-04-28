@@ -28,8 +28,6 @@ public:
 
     timeSlot getTsDone() const;
 
-    std::vector<Request> generateRequests();
-
     void showRequests(std::vector<Request> requests);
 };
 

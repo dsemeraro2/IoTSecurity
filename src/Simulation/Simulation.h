@@ -6,6 +6,7 @@
 #include "../Service/Service.h"
 #include "../Cluster/Cluster.h"
 #include "../Solution/Solution.h"
+#include "../Request/Request.h"
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, tMax = durata totale simulazione
 extern int N;
@@ -22,10 +23,12 @@ extern int timeSlotGenerate; // Timeslot inizio richiesta
 
 //Define the list of the vectors
 
-extern std::vector<Cluster> listOfClusters();
-extern std::vector<Service> listOfServices();
+extern std::vector<Cluster> initializeClusters();
+extern std::vector<Service> initializeServices();
 
 extern Service getServiceById(std::vector<Service> listOfServices, int id);
+
+extern std::vector<Request> initializeRequests();
 
 //extern Solution generateSolution();
 

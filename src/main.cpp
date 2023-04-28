@@ -21,11 +21,13 @@ int main() {
     //cout << "\nsimulationDeadline: " << simulationDeadline << " seconds";
     //cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
 
-    std::vector<Cluster> clusters = listOfClusters();
+    std::vector<Cluster> clusters = initializeClusters();
 
-    std::vector<Service> services = listOfServices();
+    std::vector<Service> services = initializeServices();
 
     Solution solution = generateSolution();
+
+    std::vector<Request> request = initializeRequests();
 
     AllocationServicesMatrix allocationServicesMatrix{T,N,M};
 
