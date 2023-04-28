@@ -1,4 +1,5 @@
 #include "Solution.h"
+#include "../Simulation/Simulation.h"
 
 Solution::Solution(int timeSlot) {
     this->timeSlot = timeSlot;

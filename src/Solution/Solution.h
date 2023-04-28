@@ -3,7 +3,6 @@
 
 
 #include "../Constellation/Constellation.h"
-#include "../Simulation/Simulation.h"
 
 class Solution {
 private:

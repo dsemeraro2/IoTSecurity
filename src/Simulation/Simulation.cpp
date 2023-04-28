@@ -48,20 +48,26 @@ Service getServiceById(std::vector<Service> listOfServices, int id) {
 int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
                       VisibilityMatrix visibilityMatrix) {
 
+    std::cout << requests.size();
     int f = 0; //Ritardo da minimizzare
 
+    //i numero delle richieste
     for (int i = 0; i < requests.size(); i++) {
 
         Service tempService = getServiceById(services, requests[i].getIdService());
         int initialTimeSlot = requests[i].getTsGenerate(); //TODO: aggiungere il delay di esecuzione
         int deadlineTimeSlot = requests[i].getTsDeadline();
 
+        //j numero della deadlineTimeSlot del singolo servizio DOVREBBE ESSERE IL MASSIMO
         for (int j = initialTimeSlot; j < deadlineTimeSlot; j++) {
 
+            //k numero dei satelliti
             for (int k = 0; k < solution.constellations[j].satellaties.size(); k++) {
 
                 std::vector<Service> listServicesSatellite = solution.constellations[j].satellaties[k].getServices();
 
+                std::cout << "i: " << i << " j: " << j << " k: " << k <<  "\n";
+                //m Numero dei diversi servizi del satellite
                 for (int m = 0; m < listServicesSatellite.size(); m++) {
 
                     if (listServicesSatellite[m].getId() == tempService.getId()) {
@@ -69,6 +75,7 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                             f = f + (j - initialTimeSlot);
                         }
                     }
+
 
                 }
             }

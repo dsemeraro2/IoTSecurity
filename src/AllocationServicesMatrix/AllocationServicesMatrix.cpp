@@ -1,4 +1,5 @@
 #include "AllocationServicesMatrix.h"
+#include "../Simulation/Simulation.h"
 
 AllocationServicesMatrix::AllocationServicesMatrix(int t, int n, int m) {
     this->tMax = t;
