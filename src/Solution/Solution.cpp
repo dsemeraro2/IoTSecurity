@@ -8,9 +8,9 @@ Solution::Solution(int timeSlot) {
     }
 }
 
-const Constellation Solution::getConstellation(int index) const {
+/*const Constellation Solution::getConstellation(int index) const {
     return constellations[index];
-}
+}*/
 
 /*std::vector<Solution> Solution::getTimeSlotWindow(int timeSlotInitial){
     int timeSlotEnd = timeSlotInitial + timeSlotDeadline;

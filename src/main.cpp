@@ -33,6 +33,8 @@ int main() {
 
     allocationServicesMatrix.initialize(&solution);
 
+    VisibilityMatrix visibilityMatrix = VisibilityMatrix(T, N, M);
+    int f = objectiveFunction(request, services, solution, visibilityMatrix);
 
     return 0;
 }
