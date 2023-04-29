@@ -7,12 +7,12 @@
 class AllocationServicesMatrix {
 private:
     int tMax, nMax, mMax;
-    int*** data;
+    int ***data;
 public:
     AllocationServicesMatrix(int t, int n, int m);
 
     // Restituisce l'elemento della matrice alle coordinate (tMax,nMax,mMax)
-    int& operator()(int t, int n, int m) {
+    int &operator()(int t, int n, int m) {
         return data[t][n][m];
     }
 

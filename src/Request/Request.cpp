@@ -1,7 +1,7 @@
 #include "Request.h"
 
 Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService) : id(id), tsGenerate(
-        tsGenerate), tsDeadline(tsDeadline), tsDone(tsDone), idService(idService) { }
+        tsGenerate), tsDeadline(tsDeadline), tsDone(tsDone), idService(idService) {}
 
 int Request::getId() const {
     return id;

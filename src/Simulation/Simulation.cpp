@@ -48,7 +48,7 @@ Service getServiceById(std::vector<Service> listOfServices, int id) {
 int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
                       VisibilityMatrix visibilityMatrix) {
 
-    std::cout << requests.size();
+    std::cout << requests.size() << "\n";
     int f = 0; //Ritardo da minimizzare
 
     //i numero delle richieste
@@ -66,7 +66,7 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
 
                 std::vector<Service> listServicesSatellite = solution.constellations[j].satellaties[k].getServices();
 
-                std::cout << "i: " << i << " j: " << j << " k: " << k <<  "\n";
+                std::cout << "i: " << i << " j: " << j << " k: " << k << "\n";
                 //m Numero dei diversi servizi del satellite
                 for (int m = 0; m < listServicesSatellite.size(); m++) {
 
@@ -75,8 +75,6 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                             f = f + (j - initialTimeSlot);
                         }
                     }
-
-
                 }
             }
         }
