@@ -28,7 +28,7 @@ public:
     // Mostra tutta la matrice
     void showMatrix();
 
-    void initialize(Solution *solution);
+    void initialize(Solution *solution, std::vector<Service> services);
 
 };
 

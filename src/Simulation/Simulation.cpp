@@ -33,16 +33,23 @@ std::vector<Service> initializeServices() {
     return services;
 };
 
-std::vector<Request> initializeRequests() {
+std::vector<Request> initializeRequests(std::vector<Service> services) {
     std::vector<Request> requests;
+    int sizeService = services.size();
     for (int i = 0; i < 10; i++) {
-        requests.insert(requests.end(), {i, i, i + timeSlotDeadline, -1, i});
+        std::cout<<"i:"<<i<<"i%sizeService:"<<i%sizeService<<"\n";
+        requests.insert(requests.end(), {i, i, i + timeSlotDeadline, -1, i%sizeService});
     }
     return requests;
 }
 
 Service getServiceById(std::vector<Service> listOfServices, int id) {
-    return listOfServices[id];
+    Service tempServizio = Service(-1, "", 0, 0);
+    for (int i = 0; i < listOfServices.size(); i++) {
+        if (listOfServices[i].getId() == id)
+            tempServizio = listOfServices[id];
+    }
+    return tempServizio;
 }
 
 int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
@@ -54,30 +61,37 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
     //i numero delle richieste
     for (int i = 0; i < requests.size(); i++) {
 
+        std::cout << "i:" << i << "\n";
+
         Service tempService = getServiceById(services, requests[i].getIdService());
         int initialTimeSlot = requests[i].getTsGenerate(); //TODO: aggiungere il delay di esecuzione
         int deadlineTimeSlot = requests[i].getTsDeadline();
 
-        //j numero della deadlineTimeSlot del singolo servizio DOVREBBE ESSERE IL MASSIMO
-        for (int j = initialTimeSlot; j < deadlineTimeSlot; j++) {
+        if (tempService.getId() != -1) {
+            //j numero della deadlineTimeSlot del singolo servizio DOVREBBE ESSERE IL MASSIMO
+            /* for (int j = initialTimeSlot; j < deadlineTimeSlot; j++) {
 
-            //k numero dei satelliti
-            for (int k = 0; k < solution.constellations[j].satellaties.size(); k++) {
+                 //k numero dei satelliti
+                 for (int k = 0; k < solution.constellations[j].satellaties.size(); k++) {
 
-                std::vector<Service> listServicesSatellite = solution.constellations[j].satellaties[k].getServices();
+                     std::vector<Service> listServicesSatellite = solution.constellations[j].satellaties[k].getServices();
 
-                std::cout << "i: " << i << " j: " << j << " k: " << k << "\n";
-                //m Numero dei diversi servizi del satellite
-                for (int m = 0; m < listServicesSatellite.size(); m++) {
+                     std::cout << "i: " << i << " j: " << j << " k: " << k << "\n";
+                     //m Numero dei diversi servizi del satellite
+                     for (int m = 0; m < listServicesSatellite.size(); m++) {
 
-                    if (listServicesSatellite[m].getId() == tempService.getId()) {
-                        if (visibilityMatrix(j, tempService.getId(), k) == 1) {
-                            f = f + (j - initialTimeSlot);
-                        }
-                    }
-                }
-            }
+                         if (listServicesSatellite[m].getId() == tempService.getId()) {
+                             if (visibilityMatrix(j, tempService.getId(), k) == 1) {
+                                 f = f + (j - initialTimeSlot);
+                             }
+                         }
+                     }
+                 }
+             }*/
+        } else {
+            std::cout << "Errore Servizio non trovato! "<< requests[i].getId() << "\n";
         }
+
     }
 
     return f;

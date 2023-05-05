@@ -27,7 +27,7 @@ std::vector<Cluster> initializeClusters();
 
 std::vector<Service> initializeServices();
 
-std::vector<Request> initializeRequests();
+std::vector<Request> initializeRequests(std::vector<Service> services);
 
 Service getServiceById(std::vector<Service> listOfServices, int id);
 

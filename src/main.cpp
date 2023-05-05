@@ -27,11 +27,11 @@ int main() {
 
     Solution solution = generateSolution();
 
-    std::vector<Request> request = initializeRequests();
+    std::vector<Request> request = initializeRequests(services);
 
     AllocationServicesMatrix allocationServicesMatrix{T, N, M};
 
-    allocationServicesMatrix.initialize(&solution);
+    allocationServicesMatrix.initialize(&solution, services);
 
     VisibilityMatrix visibilityMatrix = VisibilityMatrix(T, N, M);
     int f = objectiveFunction(request, services, solution, visibilityMatrix);
