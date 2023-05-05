@@ -55,15 +55,16 @@ void AllocationServicesMatrix::showMatrix() {
 void AllocationServicesMatrix::initialize(Solution *solution, std::vector<Service> services) {
 
     int sizeOfServices = services.size();
+
     for (int t = 0; t < tMax; t++) {
-        for (int m = 0; m < mMax; m++) {
+        //for (int m = 0; m < mMax; m++) {
             for (int n = 0; n < nMax; n++) {
-                //int m = (j + t) % mMax;
+                int m = (n + t) % mMax;
                 data[t][n][m] = 1;
                 solution->constellations[t].satellaties[m].addService(
                         getServiceById(initializeServices(), n % sizeOfServices));
             }
-        }
+        //}
     }
 
 }

@@ -38,7 +38,7 @@ std::vector<Request> initializeRequests(std::vector<Service> services) {
     int sizeService = services.size();
     for (int i = 0; i < 10; i++) {
         //std::cout<<"i:"<<i<<"i%sizeService:"<<i%sizeService<<"\n";
-        requests.insert(requests.end(), {i, i, i + timeSlotDeadline, -1, i % sizeService});
+        requests.insert(requests.end(), {i, 0, i + timeSlotDeadline, -1, i % sizeService});
     }
     return requests;
 }
@@ -96,7 +96,6 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                             }
                         }
                     }
-
                     if (serviceDeployed) {
                         break;
                     }
@@ -110,6 +109,5 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
             return 63550;
         }
     }
-
     return f;
 }
