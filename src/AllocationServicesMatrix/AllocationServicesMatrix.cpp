@@ -2,9 +2,9 @@
 #include "../Simulation/Simulation.h"
 
 AllocationServicesMatrix::AllocationServicesMatrix(int t, int n, int m) {
-    this->tMax = t;
-    this->nMax = n;
-    this->mMax = m;
+    this->tMax = t; //TimeSlote
+    this->nMax = n; //Servizi
+    this->mMax = m; //satelliti
     // Allocazione dinamica della matrice tramite il metodo new
     data = new int **[t];
     for (int i = 0; i < t; i++) {
@@ -55,11 +55,14 @@ void AllocationServicesMatrix::showMatrix() {
 void AllocationServicesMatrix::initialize(Solution *solution, std::vector<Service> services) {
 
     int sizeOfServices = services.size();
-    for (int i = 0; i < tMax; i++) {
-        for (int j = 0; j < nMax; j++) {
-            int k = (j + i) % mMax;
-            data[i][j][k] = 1;
-            solution->constellations[i].satellaties[k].addService(getServiceById(initializeServices(), j%sizeOfServices));
+    for (int t = 0; t < tMax; t++) {
+        for (int m = 0; m < mMax; m++) {
+            for (int n = 0; n < nMax; n++) {
+                //int m = (j + t) % mMax;
+                data[t][n][m] = 1;
+                solution->constellations[t].satellaties[m].addService(
+                        getServiceById(initializeServices(), n % sizeOfServices));
+            }
         }
     }
 

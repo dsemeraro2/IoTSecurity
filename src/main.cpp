@@ -34,6 +34,8 @@ int main() {
     allocationServicesMatrix.initialize(&solution, services);
 
     VisibilityMatrix visibilityMatrix = VisibilityMatrix(T, N, M);
+    visibilityMatrix.initialize();
+
     int f = objectiveFunction(request, services, solution, visibilityMatrix);
 
     return 0;
