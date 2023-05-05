@@ -58,12 +58,12 @@ void AllocationServicesMatrix::initialize(Solution *solution, std::vector<Servic
 
     for (int t = 0; t < tMax; t++) {
         //for (int m = 0; m < mMax; m++) {
-            for (int n = 0; n < nMax; n++) {
-                int m = (n + t) % mMax;
-                data[t][n][m] = 1;
-                solution->constellations[t].satellaties[m].addService(
-                        getServiceById(initializeServices(), n % sizeOfServices));
-            }
+        for (int n = 0; n < nMax; n++) {
+            int m = (n + t) % mMax;
+            data[t][n][m] = 1;
+            solution->constellations[t].satellaties[m].addService(
+                    getServiceById(initializeServices(), n % sizeOfServices));
+        }
         //}
     }
 

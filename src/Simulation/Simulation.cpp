@@ -15,21 +15,17 @@ int T = timeSlotTotali;
 
 std::vector<Cluster> initializeClusters() {
     std::vector<Cluster> clusters;
-
     for (int i = 0; i < N; i++) {
         clusters.push_back({i});
     }
-
     return clusters;
 };
 
 std::vector<Service> initializeServices() {
     std::vector<Service> services;
-
     for (int i = 0; i < N; i++) {
         services.push_back({i, "AA", 10, 10});
     }
-
     return services;
 };
 
@@ -76,7 +72,8 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
         if (tempService.getId() != -1) {
 
             //j numero della deadlineTimeSlot del singolo servizio DOVREBBE ESSERE IL MASSIMO
-            for (int j = initialTimeSlot + delayRequestCollection + delayRequestOptimization; j < deadlineTimeSlot; j++) {
+            for (int j = initialTimeSlot + delayRequestCollection + delayRequestOptimization;
+                 j < deadlineTimeSlot; j++) {
 
                 //k numero dei satelliti
                 for (int k = 0; k < solution.constellations[j].satellaties.size(); k++) {
@@ -89,10 +86,10 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
 
                         if (listServicesSatellite[m].getId() == tempService.getId()) {
                             if (visibilityMatrix(j, tempService.getId(), k) == 1) {
-                            serviceDeployed = true;
-                            f = f + (j - initialTimeSlot);
-                            std::cout << "f = " << f << "\n";
-                            break;
+                                serviceDeployed = true;
+                                f = f + (j - initialTimeSlot);
+                                std::cout << "f = " << f << "\n";
+                                break;
                             }
                         }
                     }
