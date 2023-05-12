@@ -21,6 +21,8 @@ int main() {
     //cout << "\nsimulationDeadline: " << simulationDeadline << " seconds";
     //cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
 
+    int seedRand = 3;
+
     std::vector<Cluster> clusters = initializeClusters();
 
     std::vector<Service> services = initializeServices();
@@ -28,6 +30,9 @@ int main() {
     Solution solution = generateSolution();
 
     std::vector<Request> request = initializeRequests(services);
+
+    //std::vector<Request> request = AinitializeRequests(services, seedRand);
+
 
     AllocationServicesMatrix allocationServicesMatrix{T, N, M};
 
