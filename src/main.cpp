@@ -22,6 +22,8 @@ int main() {
     //cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
 
     int seedRand = 3;
+    int slotAtDay = ceil(secondsAtDay / timeSlotDuration);
+    float lambda = (numberEventAtDay/float(slotAtDay));
 
     std::vector<Cluster> clusters = initializeClusters();
 
@@ -29,7 +31,7 @@ int main() {
 
     Solution solution = generateSolution();
 
-    std::vector<Request> request = initializeRequests(services, seedRand);
+    std::vector<Request> request = initializeRequests(services, seedRand, lambda);
 
     AllocationServicesMatrix allocationServicesMatrix{T, N, M};
 

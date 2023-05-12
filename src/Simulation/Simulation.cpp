@@ -1,13 +1,15 @@
 #include "Simulation.h"
 #include "../VisibilityMatrix/VisibilityMatrix.h"
 
+int secondsAtDay = 84600; // Secondi in un giorno
 int simulationTime = 24 * 60 * 60; // Durata totale della simulazione in secondi
 int durataRivoluzione = 94 * 60; // Durata rivoluzione di 1 satellite in secondi
 float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità di M satelliti in secondi
 int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
 int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
-int lambda = 6;
+
+int numberEventAtDay = 6;
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
 int N = 8;
@@ -31,7 +33,7 @@ std::vector<Service> initializeServices() {
 };
 
 
-std::vector<Request> initializeRequests(std::vector<Service> services, int seedRand) {
+std::vector<Request> initializeRequests(std::vector<Service> services, int seedRand, float lambda) {
 
     srand(seedRand);
 

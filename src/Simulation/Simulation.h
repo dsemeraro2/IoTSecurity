@@ -14,6 +14,8 @@ extern int N;
 extern int M;
 extern int T;
 
+extern int secondsAtDay; // Secondi in un giorno
+
 extern int simulationTime; // Durata totale della simulazione in secondi
 extern int durataRivoluzione; // Durata rivoluzione di 1 satellite in secondi
 extern float timeSlotDuration; // Intervallo durata visibilità di M satelliti in secondi
@@ -22,12 +24,15 @@ extern int simulationDeadline; // Durata totale di un servizio in secondi
 extern int timeSlotDeadline; // Timeslot entro cui eseguire un servizio
 extern int timeSlotGenerate; // Timeslot inizio richiesta
 
+extern int numberEventAtDay; // Numero di eventi in un giorno
+
+
 //Define the list of the differents vectors
 std::vector<Cluster> initializeClusters();
 
 std::vector<Service> initializeServices();
 
-std::vector<Request> initializeRequests(std::vector<Service> services, int seedRand);
+std::vector<Request> initializeRequests(std::vector<Service> services, int seedRand, float lambda);
 
 Service getServiceById(std::vector<Service> listOfServices, int id);
 
