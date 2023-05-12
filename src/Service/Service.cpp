@@ -1,15 +1,18 @@
 #include "Service.h"
 
-Service::Service(int id, const std::string &name, float cpuUsed, float ramUsed) : id(id), name(name), cpuUsed(cpuUsed),
-                                                                                  ramUsed(ramUsed) {}
+//Service::Service(int id, const std::string &name, float cpuUsed, float ramUsed) : id(id), name(name), cpuUsed(cpuUsed),
+//                                                                                  ramUsed(ramUsed) {}
+
+Service::Service(int id, float cpuUsed, float ramUsed) : id(id), cpuUsed(cpuUsed), ramUsed(ramUsed) {}
 
 int Service::getId() const {
     return id;
 }
 
-const std::string &Service::getName() const {
+/*const std::string &Service::getName() const {
     return name;
 }
+*/
 
 float Service::getCpuUsed() const {
     return cpuUsed;

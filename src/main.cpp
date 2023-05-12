@@ -23,7 +23,7 @@ int main() {
     //cout << "\nsimulationDeadline: " << simulationDeadline << " seconds";
     //cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
 
-    int seedRand = 3;
+    int seedRand = 2;
     int slotAtDay = ceil(secondsAtDay / timeSlotDuration);
     float lambda = (numberEventAtDay/float(slotAtDay));
 

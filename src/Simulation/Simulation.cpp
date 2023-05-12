@@ -25,9 +25,26 @@ std::vector<Cluster> initializeClusters() {
 };
 
 std::vector<Service> initializeServices() {
+
+    //List of services defined in the class
+    std::vector<double> listOfCycleForBit = {34.8, 11.1, 6.2, 40.5};
+    std::vector<int> listServicesForBundle = {3, 2, 3, 2};
+    std::vector<int> listRam = {2, 4};
+    int NarrowBandIoTBps = 92000;
+
     std::vector<Service> services;
+
     for (int i = 0; i < N; i++) {
-        services.push_back({i, "AA", 10, 10});
+        int index = rand()%listOfCycleForBit.size();
+        float ramUsed = 0;
+
+        for(int j=0; j < listServicesForBundle[index]; j++){
+            int indexRam = rand()%listRam.size();
+            ramUsed = ramUsed + listRam[indexRam];
+        }
+
+        Service service = Service(i, listOfCycleForBit[index]*NarrowBandIoTBps,  ramUsed);
+        services.push_back(service);
     }
     return services;
 };
@@ -46,6 +63,7 @@ std::vector<Request> initializeRequests(std::vector<Service> services, int seedR
         int next_time = 0; // E' la differenza di tempo che serve per scorrere il tempo globale
 
         while (t_next < (timeSlotTotali - timeSlotDeadline)) {
+            // Poisson
             float r = ((float) rand() / (RAND_MAX));
             float float_next_time = -(log(1.0 - r) / lambda);
 
@@ -53,7 +71,7 @@ std::vector<Request> initializeRequests(std::vector<Service> services, int seedR
 
             t_next = t_next + next_time;
 
-            if (next_time <= (timeSlotTotali - timeSlotDeadline)) {
+            if (t_next <= (timeSlotTotali - timeSlotDeadline)) {
                 requests.push_back({i, t_next, t_next + timeSlotDeadline, -1, i % sizeService});
             }
 
@@ -64,7 +82,7 @@ std::vector<Request> initializeRequests(std::vector<Service> services, int seedR
 
 
 Service getServiceById(std::vector<Service> listOfServices, int id) {
-    Service tempServizio = Service(-1, "", 0, 0);
+    Service tempServizio = Service(-1, 0, 0);
     for (int i = 0; i < listOfServices.size(); i++) {
         if (listOfServices[i].getId() == id)
             tempServizio = listOfServices[id];
@@ -75,7 +93,7 @@ Service getServiceById(std::vector<Service> listOfServices, int id) {
 int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
                       VisibilityMatrix visibilityMatrix) {
 
-    std::cout << requests.size() << "\n";
+    std::cout << "Request size: " << requests.size() << "\n";
     int f = 0; //Ritardo da minimizzare
     bool serviceDeployed = false;
 
@@ -112,7 +130,7 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                             if (visibilityMatrix(j, tempService.getId(), k) == 1) {
                                 serviceDeployed = true;
                                 f = f + (j - initialTimeSlot);
-                                std::cout << "f = " << f << "\n";
+                                std::cout << "Funzione obiettivo: " << f << "\n";
                                 break;
                             }
                         }
