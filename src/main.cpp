@@ -40,7 +40,7 @@ int main() {
     VisibilityMatrix visibilityMatrix = VisibilityMatrix(T, N, M);
     visibilityMatrix.initialize();
 
-    int f = objectiveFunction(request, services, solution, visibilityMatrix);
+    solution.f = objectiveFunction(request, services, solution, visibilityMatrix);
 
     return 0;
 }

@@ -150,6 +150,9 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
 }
 
 
+
+
+
 // 3 Funzioni importanti per la TabuSearch:
 // Funzione obiettivo: Definita
 // Tabu List Management: Lista delle soluzioni gia visitati

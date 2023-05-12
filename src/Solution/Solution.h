@@ -9,6 +9,8 @@ private:
     int timeSlot;
 
 public:
+
+    float f;
     std::vector<Constellation> constellations;
 
     Solution(int timeSlot);
