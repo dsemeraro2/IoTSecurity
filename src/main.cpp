@@ -15,17 +15,15 @@ Solution generateSolution() {
 int main() {
 
     //TODO: Da fare una simulazione ad ampio spretto sui cluster, satelliti, eventi e seed
+    //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
+    //int N = 8;
+    //int M = 5;
 
-    //cout << "\nsimulationTime: " << simulationTime << " seconds";
-    //cout << "\ndurataRivoluzione: " << durataRivoluzione << " seconds";
-    //cout << "\ntimeSlotDuration: " << timeSlotDuration << " seconds";
-    //cout << "\ntimeSlotTotali: " << timeSlotTotali << " time slot";
-    //cout << "\nsimulationDeadline: " << simulationDeadline << " seconds";
-    //cout << "\ntimeslotDeadline: " << timeSlotDeadline << " time slot";
+    int numberEventAtDay = 6;
 
     int seedRand = 2;
     int slotAtDay = ceil(secondsAtDay / timeSlotDuration);
-    float lambda = (numberEventAtDay/float(slotAtDay));
+    float lambda = (numberEventAtDay / float(slotAtDay));
 
     std::vector<Cluster> clusters = initializeClusters();
 

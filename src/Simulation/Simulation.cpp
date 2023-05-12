@@ -9,12 +9,10 @@ int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali t
 int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
 
-int numberEventAtDay = 6;
-
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
+int T = timeSlotTotali;
 int N = 8;
 int M = 5;
-int T = timeSlotTotali;
 
 std::vector<Cluster> initializeClusters() {
     std::vector<Cluster> clusters;
