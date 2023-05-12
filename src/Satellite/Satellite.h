@@ -5,6 +5,12 @@
 #include <vector>
 #include "../Service/Service.h"
 
+/*
+ * Modello di satelliti: PowerEdge R6515 con AMD EPYC 7702p, 2 GHz
+ * CPU: 2 000 000 * 64 numero di CPU (64)
+ * RAM: 64 GB di ram
+*/
+
 class Satellite {
 
 private:

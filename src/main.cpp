@@ -14,6 +14,8 @@ Solution generateSolution() {
 
 int main() {
 
+    //TODO: Da fare una simulazione ad ampio spretto sui cluster, satelliti, eventi e seed
+
     //cout << "\nsimulationTime: " << simulationTime << " seconds";
     //cout << "\ndurataRivoluzione: " << durataRivoluzione << " seconds";
     //cout << "\ntimeSlotDuration: " << timeSlotDuration << " seconds";
