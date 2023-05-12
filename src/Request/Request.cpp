@@ -1,10 +1,10 @@
 #include "Request.h"
 
-Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService) : id(id), tsGenerate(
+Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService) : idCluster(id), tsGenerate(
         tsGenerate), tsDeadline(tsDeadline), tsDone(tsDone), idService(idService) {}
 
 int Request::getId() const {
-    return id;
+    return idCluster;
 }
 
 timeSlot Request::getTsGenerate() const {
@@ -29,7 +29,7 @@ int Request::getIdService() const {
 
 void Request::showRequests(std::vector<Request> requests) {
     for (int i = 0; i < 10; i++) {
-        std::cout << "\nRequest: " << requests[i].id << " tsGenerate: " << requests[i].tsGenerate
+        std::cout << "\nRequest: " << requests[i].idCluster << " tsGenerate: " << requests[i].tsGenerate
                   << " tsDeadline: " << requests[i].tsDeadline << " tsDone: " << requests[i].tsDone;
     }
 }

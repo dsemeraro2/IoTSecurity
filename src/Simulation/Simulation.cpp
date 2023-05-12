@@ -7,7 +7,7 @@ float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità
 int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
 int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
-int lambda =  6;
+int lambda = 6;
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
 int N = 8;
@@ -30,31 +30,31 @@ std::vector<Service> initializeServices() {
     return services;
 };
 
-std::vector<Request> initializeRequests(std::vector<Service> services) {
-    std::vector<Request> requests;
-    int sizeService = services.size();
-    for (int i = 0; i < 10; i++) {
-        //std::cout<<"i:"<<i<<"i%sizeService:"<<i%sizeService<<"\n";
-        requests.insert(requests.end(), {i, 0, i + timeSlotDeadline, -1, i % sizeService});
-    }
-    return requests;
-}
 
-std::vector<Request> AinitializeRequests(std::vector<Service> services, int seedRand) {
+std::vector<Request> initializeRequests(std::vector<Service> services, int seedRand) {
 
     srand(seedRand);
+
     std::vector<Request> requests;
+
     int sizeService = services.size();
     for (int i = 0; i < N; i++) {
 
         int t_next = 0; // Istante in cui avviene l'evento, tempo globale che scorre
         int next_time = 0; // E' la differenza di tempo che serve per scorrere il tempo globale
 
-        while(t_next < (timeSlotTotali - timeSlotDeadline)) {
-            float r = ((float) rand() / (RAND_MAX) );
-            float float_next_time = -(log(1.0-r)/lambda);
+        while (t_next < (timeSlotTotali - timeSlotDeadline)) {
+            float r = ((float) rand() / (RAND_MAX));
+            float float_next_time = -(log(1.0 - r) / lambda);
 
-            //next_time =
+            next_time = ceil(float_next_time);
+
+            t_next = t_next + next_time;
+
+            if (next_time <= (timeSlotTotali - timeSlotDeadline)) {
+                requests.push_back({i, t_next, t_next + timeSlotDeadline, -1, i % sizeService});
+            }
+
         }
     }
     return requests;

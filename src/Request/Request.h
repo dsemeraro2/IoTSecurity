@@ -9,7 +9,7 @@ typedef int timeSlot;
 
 class Request {
 
-    int id{};
+    int idCluster{};
     timeSlot tsGenerate{};
     timeSlot tsDeadline{};
     timeSlot tsDone{};
