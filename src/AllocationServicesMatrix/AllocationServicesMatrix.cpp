@@ -41,15 +41,7 @@ void AllocationServicesMatrix::setValue(int t, int n, int m, int value) {
 }
 
 void AllocationServicesMatrix::showMatrix() {
-    for (int i = 0; i < tMax; i++) {
-        std::cout << "\nT:" << i;
-        for (int j = 0; j < nMax; j++) {
-            std::cout << "\n";
-            for (int k = 0; k < mMax; k++) {
-                std::cout << data[i][j][k] << " ";
-            }
-        }
-    }
+
 }
 
 void AllocationServicesMatrix::initialize(Solution *solution, std::vector<Service> services) {
