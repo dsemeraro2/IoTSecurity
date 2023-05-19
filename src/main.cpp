@@ -32,7 +32,7 @@ int main() {
 
     Solution solution = generateSolution();
 
-    std::vector<Request> request = initializeRequests(services, seedRand, lambda);
+    std::vector<Request> requests = initializeRequests(services, seedRand, lambda);
 
     AllocationServicesMatrix allocationServicesMatrix{T, N, M};
 
@@ -41,11 +41,9 @@ int main() {
     VisibilityMatrix visibilityMatrix = VisibilityMatrix(T, N, M);
     visibilityMatrix.initialize();
 
-    solution.f = objectiveFunction(request, services, &solution, visibilityMatrix, true);
-
     std::cout << "Funzione obiettivo: " << solution.f << "\n";
 
-    TabuSearch tabuSearch = TabuSearch();
+    //TabuSearch tabuSearch = TabuSearch(requests,T, M, services.size());
 
     //tabuSearch.swapMove(solution, T, M, N);
 

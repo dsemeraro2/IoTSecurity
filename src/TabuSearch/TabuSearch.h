@@ -3,12 +3,23 @@
 
 #include "../Solution/Solution.h"
 #include "../Request/Request.h"
+#include "../VisibilityMatrix/VisibilityMatrix.h"
 
 class TabuSearch {
 public:
-    TabuSearch();
-    void swapMove(Solution *solution, int timeSlotSize, int satellitesSize, int servicesSize);
-    void optimizationTabuSearch(std::vector<Request> requests, int timeSlotInitial, int timeSlotTotali);
+    int timeSlot;
+    int satellites;
+    std::vector<Service> services;
+    std::vector<Request> requests;
+    Solution solution;
+    VisibilityMatrix visibilityMatrix;
+
+    TabuSearch(int timeSlot, int satellites, std::vector<Service> services, const std::vector<Request> &requests,
+               const Solution &solution, const VisibilityMatrix &visibilityMatrix);
+
+    void optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali);
+    void swapMove();
+    void tabuSearchIterate(std::vector<Request> tempRequests);
 };
 
 
