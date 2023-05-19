@@ -6,13 +6,13 @@ int simulationTime = 24 * 60 * 60; // Durata totale della simulazione in secondi
 int durataRivoluzione = 94 * 60; // Durata rivoluzione di 1 satellite in secondi
 float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità di M satelliti in secondi
 int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
-int simulationDeadline = 6 * 60 * 60; // Durata totale di un servizio in secondi
+int simulationDeadline = 3 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
 int T = timeSlotTotali;
-int N = 8;
-int M = 5;
+int N = 100;
+int M = 3;
 
 std::vector<Cluster> initializeClusters() {
     std::vector<Cluster> clusters;
@@ -33,15 +33,15 @@ std::vector<Service> initializeServices() {
     std::vector<Service> services;
 
     for (int i = 0; i < N; i++) {
-        int index = rand()%listOfCycleForBit.size();
+        int index = rand() % listOfCycleForBit.size();
         float ramUsed = 0;
 
-        for(int j=0; j < listServicesForBundle[index]; j++){
-            int indexRam = rand()%listRam.size();
+        for (int j = 0; j < listServicesForBundle[index]; j++) {
+            int indexRam = rand() % listRam.size();
             ramUsed = ramUsed + listRam[indexRam];
         }
 
-        Service service = Service(i, listOfCycleForBit[index]*NarrowBandIoTBps,  ramUsed);
+        Service service = Service(i, listOfCycleForBit[index] * NarrowBandIoTBps, ramUsed);
         services.push_back(service);
     }
     return services;
@@ -88,8 +88,8 @@ Service getServiceById(std::vector<Service> listOfServices, int id) {
     return tempServizio;
 }
 
-int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
-                      VisibilityMatrix visibilityMatrix) {
+int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution *solution,
+                      VisibilityMatrix visibilityMatrix, bool editMode) {
 
     std::cout << "Request size: " << requests.size() << "\n";
     int f = 0; //Ritardo da minimizzare
@@ -116,11 +116,11 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                  j < deadlineTimeSlot; j++) {
 
                 //k numero dei satelliti
-                for (int k = 0; k < solution.constellations[j].satellaties.size(); k++) {
+                for (int k = 0; k < solution->constellations[j].satellaties.size(); k++) {
 
-                    std::vector<Service> listServicesSatellite = solution.constellations[j].satellaties[k].getServices();
+                    std::vector<Service> listServicesSatellite = solution->constellations[j].satellaties[k].getServices();
 
-                    std::cout << "i: " << i << " j: " << j << " k: " << k << "\n";
+                    //std::cout << "Richiesta i: " << i << " Timeslot j: " << j << "Satellite k: " << k << "\n";
                     //m Numero dei diversi servizi del satellite
                     for (int m = 0; m < listServicesSatellite.size(); m++) {
 
@@ -128,27 +128,58 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                             if (visibilityMatrix(j, tempService.getId(), k) == 1) {
                                 serviceDeployed = true;
                                 f = f + (j - initialTimeSlot);
-                                std::cout << "Funzione obiettivo: " << f << "\n";
+                                //std::cout << "Funzione obiettivo: " << f << "\n";
                                 break;
                             }
                         }
                     }
-                    if (serviceDeployed) {
-                        break;
-                    }
+                    if (serviceDeployed) break;
                 }
                 if (serviceDeployed) break;
             }
+
+            if (editMode && !serviceDeployed) {
+                //Codice di aggiunta servizi sul satelliti
+
+                for (int j = initialTimeSlot + delayRequestCollection + delayRequestOptimization;
+                     j < deadlineTimeSlot; j++) {
+
+                    //k numero dei satelliti
+                    for (int k = 0; k < solution->constellations[j].satellaties.size(); k++) {
+
+                        if (visibilityMatrix(j, tempService.getId(), k) == 1) {
+
+                            bool allocated = solution->constellations[j].satellaties[k].addService(tempService);
+
+                            if (allocated) {
+                                serviceDeployed = true;
+                                f = f + (j - initialTimeSlot);
+                                std::cout << "Funzione obiettivo: " << f << "\n";
+                            }
+                            break;
+                        }
+                        if (serviceDeployed) break;
+                    }
+                    if (serviceDeployed) break;
+                }
+                if (!serviceDeployed) {
+                    //Se non è in modalità modifica edit mode falso e il servizio non è stato deployato ritorna infinito
+                    return 63550;
+                }
+
+            } else if (!editMode && !serviceDeployed) {
+                //Se non è in modalità modifica edit mode falso e il servizio non è stato deployato ritorna infinito
+                return 63550;
+            }
+
         } else {
-            std::cout << "Errore Servizio non trovato! " << requests[i].getId() << "\n";
-        }
-        if (!serviceDeployed) {
-            return 63550;
+            std::cout << "Errore Servizio non trovato! " << requests[i].getIdCluster() << "\n";
+            objectiveFunction(requests, services, solution, visibilityMatrix, false);
         }
     }
+
     return f;
 }
-
 
 
 

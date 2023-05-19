@@ -1,9 +1,14 @@
 #include "Request.h"
 
-Request::Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService) : idCluster(id), tsGenerate(
+Request::Request(int idRequest, int idCluster, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService)
+        : idRequest(idRequest), (idCluster), tsGenerate(
         tsGenerate), tsDeadline(tsDeadline), tsDone(tsDone), idService(idService) {}
 
-int Request::getId() const {
+int Request::getIdRequest() const {
+    return idRequest;
+}
+
+int Request::getIdCluster() const {
     return idCluster;
 }
 
@@ -19,7 +24,11 @@ timeSlot Request::getTsDone() const {
     return tsDone;
 }
 
-void Request::setTsDone(float tsDone) {
+void Request::setIdRequest(int idRequest) {
+    Request::idRequest = idRequest;
+}
+
+void Request::setTsDone(int tsDone) {
     Request::tsDone = tsDone;
 }
 

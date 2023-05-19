@@ -7,6 +7,7 @@ using namespace std;
 #include "Simulation/Simulation.h"
 #include "Cluster/Cluster.h"
 #include "AllocationServicesMatrix/AllocationServicesMatrix.h"
+#include "TabuSearch/TabuSearch.h"
 
 Solution generateSolution() {
     return Solution(timeSlotTotali);
@@ -35,12 +36,18 @@ int main() {
 
     AllocationServicesMatrix allocationServicesMatrix{T, N, M};
 
-    allocationServicesMatrix.initialize(&solution, services);
+    //allocationServicesMatrix.initialize(&solution, services);
 
     VisibilityMatrix visibilityMatrix = VisibilityMatrix(T, N, M);
     visibilityMatrix.initialize();
 
-    solution.f = objectiveFunction(request, services, solution, visibilityMatrix);
+    solution.f = objectiveFunction(request, services, &solution, visibilityMatrix, true);
+
+    std::cout << "Funzione obiettivo: " << solution.f << "\n";
+
+    TabuSearch tabuSearch = TabuSearch();
+
+    tabuSearch.swapMove(solution, T, M, N);
 
     return 0;
 }

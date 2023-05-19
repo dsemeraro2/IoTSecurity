@@ -39,7 +39,7 @@ Service getServiceById(std::vector<Service> listOfServices, int id);
 //extern Solution generateSolution();
 
 //Funzione obiettivo
-int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution solution,
-                      VisibilityMatrix visibilityMatrix);
+int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution *solution,
+                      VisibilityMatrix visibilityMatrix, bool editMode);
 
 #endif //IOTSECURITY_SIMULATION_H

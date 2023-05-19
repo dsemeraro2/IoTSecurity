@@ -9,6 +9,7 @@ typedef int timeSlot;
 
 class Request {
 
+    int idRequest;
     int idCluster{};
     timeSlot tsGenerate{};
     timeSlot tsDeadline{};
@@ -16,11 +17,15 @@ class Request {
     int idService;
 
 public:
-    Request(int id, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService);
+    Request(int idRequest, int idCluster, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService);
 
-    void setTsDone(float tsDone);
+    int getIdRequest() const;
 
-    int getId() const;
+    void setIdRequest(int idRequest);
+
+    void setTsDone(int tsDone);
+
+    int getIdCluster() const;
 
     timeSlot getTsGenerate() const;
 
@@ -31,6 +36,7 @@ public:
     int getIdService() const;
 
     void showRequests(std::vector<Request> requests);
+
 };
 
 

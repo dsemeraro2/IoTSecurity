@@ -2,11 +2,7 @@
 
 TabuSearch::TabuSearch() {}
 
-void TabuSearch::swapMove() {
-
-    int timeSlotSize = 10; //TimeSlote
-    int servicesSize = 10; //Servizi
-    int satellitesSize = 10; //satelliti
+void TabuSearch::swapMove(Solution *solution, int timeSlotSize, int satellitesSize, int servicesSize) {
 
     for (int i = 0; i < timeSlotSize; i++) {
 
@@ -17,5 +13,35 @@ void TabuSearch::swapMove() {
             }
         }
     }
+}
+
+void TabuSearch::optimizationTabuSearch(std::vector<Request> requests, int timeSlotInitial, int timeSlotTotali) {
+
+    for (int i = timeSlotInitial; i < timeSlotTotali; i++) {
+
+        std::vector<Request> tempRequests;
+
+        // Ciclo su tutte le richieste
+        for (int j = 0; j < requests.size(); j++) {
+            // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
+            if (requests[j].getTsGenerate() <= i && requests[j].getTsDone() == -1) {
+                tempRequests.push_back(requests[j]);
+            }
+        }
+
+        // Applicazione della swapmove
+
+
+        //
+        for (int j = 0; j < tempRequests.size(); j++) {
+            // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
+            if (tempRequests[j].getTsDone() <= i) {
+                requests[j] = tempRequests[j];
+            }
+        }
+
+    }
 
 }
+
+
