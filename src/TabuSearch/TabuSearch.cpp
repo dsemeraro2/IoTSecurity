@@ -36,7 +36,9 @@ void TabuSearch::optimizationTabuSearch(std::vector<Request> requests, int timeS
         for (int j = 0; j < tempRequests.size(); j++) {
             // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
             if (tempRequests[j].getTsDone() <= i) {
-                requests[j] = tempRequests[j];
+
+
+
             }
         }
 

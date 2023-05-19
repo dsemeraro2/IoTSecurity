@@ -47,7 +47,7 @@ int main() {
 
     TabuSearch tabuSearch = TabuSearch();
 
-    tabuSearch.swapMove(solution, T, M, N);
+    //tabuSearch.swapMove(solution, T, M, N);
 
     return 0;
 }

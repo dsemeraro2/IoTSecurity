@@ -54,7 +54,10 @@ std::vector<Request> initializeRequests(std::vector<Service> services, int seedR
 
     std::vector<Request> requests;
 
+    int countIdRequest = 0;
+
     int sizeService = services.size();
+
     for (int i = 0; i < N; i++) {
 
         int t_next = 0; // Istante in cui avviene l'evento, tempo globale che scorre
@@ -70,7 +73,7 @@ std::vector<Request> initializeRequests(std::vector<Service> services, int seedR
             t_next = t_next + next_time;
 
             if (t_next <= (timeSlotTotali - timeSlotDeadline)) {
-                requests.push_back({i, t_next, t_next + timeSlotDeadline, -1, i % sizeService});
+                requests.push_back({countIdRequest++, i, t_next, t_next + timeSlotDeadline, -1, i % sizeService});
             }
 
         }

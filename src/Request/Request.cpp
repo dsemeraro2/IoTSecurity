@@ -1,7 +1,7 @@
 #include "Request.h"
 
 Request::Request(int idRequest, int idCluster, timeSlot tsGenerate, timeSlot tsDeadline, timeSlot tsDone, int idService)
-        : idRequest(idRequest), (idCluster), tsGenerate(
+        : idRequest(idRequest), idCluster(idCluster), tsGenerate(
         tsGenerate), tsDeadline(tsDeadline), tsDone(tsDone), idService(idService) {}
 
 int Request::getIdRequest() const {
