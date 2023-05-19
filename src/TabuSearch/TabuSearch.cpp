@@ -32,13 +32,12 @@ void TabuSearch::optimizationTabuSearch(std::vector<Request> requests, int timeS
         // Applicazione della swapmove
 
 
-        //
+        // Completamento delle richieste che rispettano il tsDone
         for (int j = 0; j < tempRequests.size(); j++) {
             // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
             if (tempRequests[j].getTsDone() <= i) {
-
-
-
+                // Riassegnazione del tempRequest completati in passato alla requests globale
+                requests[tempRequests[j].getIdRequest()] = tempRequests[j];
             }
         }
 
