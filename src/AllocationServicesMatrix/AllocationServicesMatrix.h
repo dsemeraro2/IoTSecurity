@@ -4,6 +4,9 @@
 #include <iostream>
 #include "../Solution/Solution.h"
 
+//tMax = timeSlot
+//nMax = servizio
+//mMax = satellite
 class AllocationServicesMatrix {
 private:
     int tMax, nMax, mMax;

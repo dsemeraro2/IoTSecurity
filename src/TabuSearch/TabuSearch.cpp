@@ -3,13 +3,16 @@
 
 TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> services,
                        const std::vector<Request> &requests,
-                       const Solution &solution, const VisibilityMatrix &visibilityMatrix) : timeSlot(timeSlot),
-                                                                                             satellites(satellites),
-                                                                                             services(services),
-                                                                                             requests(requests),
-                                                                                             solution(solution),
-                                                                                             visibilityMatrix(
-                                                                                                     visibilityMatrix) {}
+                       const Solution &solution, const VisibilityMatrix &visibilityMatrix,
+                       const AllocationServicesMatrix &allocationServicesMatrix) : timeSlot(timeSlot),
+                                                                                   satellites(satellites),
+                                                                                   services(services),
+                                                                                   requests(requests),
+                                                                                   solution(solution),
+                                                                                   visibilityMatrix(
+                                                                                           visibilityMatrix),
+                                                                                   allocationServicesMatrix(
+                                                                                           allocationServicesMatrix) {}
 
 void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali) {
 
@@ -41,20 +44,22 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
 
 }
 
-void TabuSearch::swapMove(Service service, int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
+void TabuSearch::swapMove(int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
                           int destService, int destSatellite) {
 
-
-
+    allocationServicesMatrix.setValue(sourceTimeSlot,sourceService, sourceSatellite, 0);
+    allocationServicesMatrix.setValue(destTimeSlot,destService, destSatellite, 1);
 }
 
-void TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
+Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
 
     Solution tempSolution = solution;
     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
 
     // Soluzione minimo
     Solution minSolution = tempSolution;
+
+    //Tutto questo deve stare in un ciclo for, quale? non ricordo
 
     //Esploro le soluzioni vicine
     for (int i = 0; i < timeSlot; i++) {
@@ -68,10 +73,12 @@ void TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
             }
         }
     }
+
     if (tempSolution.f < minSolution.f) {
         minSolution = tempSolution;
     }
 
+    return minSolution;
 }
 
 
