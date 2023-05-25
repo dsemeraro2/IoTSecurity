@@ -1,7 +1,8 @@
 #include "TabuSearch.h"
 #include "../Simulation/Simulation.h"
 
-TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> services, const std::vector<Request> &requests,
+TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> services,
+                       const std::vector<Request> &requests,
                        const Solution &solution, const VisibilityMatrix &visibilityMatrix) : timeSlot(timeSlot),
                                                                                              satellites(satellites),
                                                                                              services(services),
@@ -10,7 +11,7 @@ TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> servic
                                                                                              visibilityMatrix(
                                                                                                      visibilityMatrix) {}
 
-void TabuSearch::optimizationTabuSearch( int timeSlotInitial, int timeSlotTotali) {
+void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali) {
 
     for (int i = timeSlotInitial; i < timeSlotTotali; i++) {
 

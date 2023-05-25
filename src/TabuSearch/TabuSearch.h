@@ -18,7 +18,9 @@ public:
                const Solution &solution, const VisibilityMatrix &visibilityMatrix);
 
     void optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali);
+
     void swapMove();
+
     void tabuSearchIterate(std::vector<Request> tempRequests);
 };
 
