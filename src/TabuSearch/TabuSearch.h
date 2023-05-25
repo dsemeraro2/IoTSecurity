@@ -19,7 +19,8 @@ public:
 
     void optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali);
 
-    void swapMove();
+    void swapMove(Service service, int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
+                  int destService, int destSatellite);
 
     void tabuSearchIterate(std::vector<Request> tempRequests);
 };

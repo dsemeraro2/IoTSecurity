@@ -41,7 +41,9 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
 
 }
 
-void TabuSearch::swapMove() {
+void TabuSearch::swapMove(Service service, int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
+                          int destService, int destSatellite) {
+
 
 
 }
@@ -58,12 +60,18 @@ void TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     for (int i = 0; i < timeSlot; i++) {
         for (int j = 0; j < services.size(); j++) {
             for (int k = 0; k < satellites; k++) {
-                swapMove();
+
+                //swapMove();
+
                 // Ricalcolo della funzione obiettivo
                 tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, false);
             }
         }
     }
+    if (tempSolution.f < minSolution.f) {
+        minSolution = tempSolution;
+    }
+
 }
 
 

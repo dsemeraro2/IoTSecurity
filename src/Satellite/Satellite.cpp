@@ -45,8 +45,11 @@ bool Satellite::addService(Service service) {
 
     float cpuRimanente = this->getCpuUsed() - service.getCpuUsed();
     float ramRimanente = this->getRamUsed() - service.getRamUsed();
+    bool serviceAlreadyUploaded = false;
 
-    if (cpuRimanente >= 0 && ramRimanente >= 0) {
+    serviceAlreadyUploaded = this->checkService(service.getId());
+
+    if (cpuRimanente >= 0 && ramRimanente >= 0 && !serviceAlreadyUploaded) {
         setCpuUsed(cpuRimanente);
         setRamUsed(ramRimanente);
         this->services.push_back(service);
