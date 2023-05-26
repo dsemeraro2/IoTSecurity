@@ -43,9 +43,7 @@ int main() {
 
     std::cout << "Funzione obiettivo: " << solution.f << "\n";
 
-    //TabuSearch tabuSearch = TabuSearch(requests,T, M, services.size());
-
-    //tabuSearch.swapMove(solution, T, M, N);
+    //TabuSearch tabuSearch = TabuSearch();
 
     return 0;
 }

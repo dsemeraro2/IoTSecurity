@@ -80,10 +80,3 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
 
     return minSolution;
 }
-
-
-
-
-
-
-
