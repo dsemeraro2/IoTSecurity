@@ -39,16 +39,14 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
                 requests[tempRequests[j].getIdRequest()] = tempRequests[j];
             }
         }
-
     }
-
 }
 
 void TabuSearch::swapMove(int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
                           int destService, int destSatellite) {
 
-    allocationServicesMatrix.setValue(sourceTimeSlot,sourceService, sourceSatellite, 0);
-    allocationServicesMatrix.setValue(destTimeSlot,destService, destSatellite, 1);
+    allocationServicesMatrix.setValue(sourceTimeSlot, sourceService, sourceSatellite, 0);
+    allocationServicesMatrix.setValue(destTimeSlot, destService, destSatellite, 1);
 }
 
 Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
@@ -59,24 +57,27 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     // Soluzione minimo
     Solution minSolution = tempSolution;
 
-    //Tutto questo deve stare in un ciclo for, quale? non ricordo
+    // Ciclo su tutte le solution TODO: Check
+    //for (int s = 0; s < ; s++) {
 
-    //Esploro le soluzioni vicine
-    for (int i = 0; i < timeSlot; i++) {
-        for (int j = 0; j < services.size(); j++) {
-            for (int k = 0; k < satellites; k++) {
+        // Esploro le soluzioni vicine
+        for (int i = 0; i < timeSlot; i++) {
+            for (int j = 0; j < services.size(); j++) {
+                for (int k = 0; k < satellites; k++) {
 
-                //swapMove();
+                    // TODO: Da sistemare gli indici
+                    swapMove(i, j, k, i, j, k);
 
-                // Ricalcolo della funzione obiettivo
-                tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, false);
+                    // Ricalcolo della funzione obiettivo
+                    tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, false);
+                }
             }
         }
-    }
 
-    if (tempSolution.f < minSolution.f) {
-        minSolution = tempSolution;
-    }
+        if (tempSolution.f < minSolution.f) {
+            minSolution = tempSolution;
+        }
+    //}
 
     return minSolution;
 }
