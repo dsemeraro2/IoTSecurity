@@ -42,11 +42,13 @@ public:
 
     bool addService(Service service);
 
-    void removeService(int indexService);
+    void removeServiceByIndex(int indexService);
 
     bool checkService(int indexService);
 
     int numberOfServices();
+
+    Service getServiceByIndex(int index);
 };
 
 

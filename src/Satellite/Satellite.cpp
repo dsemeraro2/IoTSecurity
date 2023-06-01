@@ -60,7 +60,7 @@ bool Satellite::addService(Service service) {
 
 }
 
-void Satellite::removeService(int indexService) {
+void Satellite::removeServiceByIndex(int indexService) {
 
     this->setCpuUsed(this->getCpuUsed() + this->services[indexService].getCpuUsed());
     this->setRamUsed(this->getRamUsed() + this->services[indexService].getRamUsed());
@@ -83,3 +83,13 @@ int Satellite::numberOfServices(){
     return this->services.size();
 }
 
+Service Satellite::getServiceByIndex(int index){
+
+    if(index <= this->numberOfServices()){
+        return this->services[index];
+    } else {
+        return Service(-1, 0,0);
+    }
+
+
+}
