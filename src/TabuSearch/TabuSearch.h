@@ -24,6 +24,8 @@ public:
     void swapMove(int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
                   int destService, int destSatellite);
 
+    bool stopCondition(std::vector<float> historySolution);
+
     Solution tabuSearchIterate(std::vector<Request> tempRequests);
 };
 

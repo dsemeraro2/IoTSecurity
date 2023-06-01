@@ -57,8 +57,11 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     // Soluzione minimo
     Solution minSolution = tempSolution;
 
+    //Vettore delle soluzioni
+    std::vector<float> historySolution;
+
     // Ciclo su tutte le solution TODO: Check
-    //for (int s = 0; s < ; s++) {
+    while(!stopCondition(historySolution)){
 
         // Esploro le soluzioni vicine
         for (int i = 0; i < timeSlot; i++) {
@@ -70,14 +73,24 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
 
                     // Ricalcolo della funzione obiettivo
                     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, false);
+
+                    if (tempSolution.f < minSolution.f) {
+                        minSolution = tempSolution;
+                    }
+
                 }
             }
         }
-
-        if (tempSolution.f < minSolution.f) {
-            minSolution = tempSolution;
-        }
-    //}
+        tempSolution = minSolution;
+    }
 
     return minSolution;
+}
+
+bool TabuSearch::stopCondition(std::vector<float> historySolution){
+
+    if(historySolution.size()>3)
+        return true;
+
+    return false;
 }
