@@ -15,6 +15,7 @@ public:
     Solution solution;
     VisibilityMatrix visibilityMatrix;
     AllocationServicesMatrix allocationServicesMatrix;
+    std::vector<Solution> tabuList;
 
     TabuSearch(int timeSlot, int satellites, std::vector<Service> services, const std::vector<Request> &requests,
                const Solution &solution, const VisibilityMatrix &visibilityMatrix, const AllocationServicesMatrix &allocationServicesMatrix);

@@ -29,7 +29,10 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
         }
 
         // Applicazione della swapmove
-        tabuSearchIterate(tempRequests);
+        Solution tempSolution = tabuSearchIterate(tempRequests);
+
+        //TODO DA ASSEGNARE IL TSDONE è un ciclo in quanto va per tutte le richieste
+        // SIMILE ALLA FUNZIONE OBIETTIVO CAMBIANDO IL LIMETE TEMPORALE CHE CORRISPONDE AD I
 
         // Completamento delle richieste che rispettano il tsDone
         for (int j = 0; j < tempRequests.size(); j++) {
@@ -45,10 +48,12 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
 Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
                               int destTimeSlot, int destService, int destSatellite) {
 
-    Service tempService_1 = tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].getServiceByIndex(sourceService);
-    Service tempService_2 = tempSolution.constellations[destTimeSlot].satellaties[destSatellite].getServiceByIndex(destService);
+    Service tempService_1 = tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].getServiceByIndex(
+            sourceService);
+    Service tempService_2 = tempSolution.constellations[destTimeSlot].satellaties[destSatellite].getServiceByIndex(
+            destService);
 
-    if(tempService_1.getId() != -1 && tempService_2.getId() != -1){
+    if (tempService_1.getId() != -1 && tempService_2.getId() != -1) {
         tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].removeServiceByIndex(sourceService);
         tempSolution.constellations[destTimeSlot].satellaties[destSatellite].removeServiceByIndex(destService);
 
@@ -58,7 +63,7 @@ Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sou
         int checkAddServiceDest = tempSolution.constellations[destTimeSlot].satellaties[destSatellite].addService(
                 getServiceById(this->services, sourceService));
 
-        if(checkAddServiceSource == 1 && checkAddServiceDest == 1){
+        if (checkAddServiceSource == 1 && checkAddServiceDest == 1) {
             return tempSolution;
         } else {
             tempSolution.f = INT_MAX;
@@ -68,13 +73,13 @@ Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sou
         //allocationServicesMatrix.setValue(sourceTimeSlot, sourceService, sourceSatellite, 0);
         //allocationServicesMatrix.setValue(destTimeSlot, destService, destSatellite, 1);
 
-    } else if(tempService_1.getId() != -1 && tempService_2.getId() == -1){
+    } else if (tempService_1.getId() != -1 && tempService_2.getId() == -1) {
         tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].removeServiceByIndex(sourceService);
 
         int checkAddServiceSource = tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].addService(
                 getServiceById(this->services, destService));
 
-        if(checkAddServiceSource == 1){
+        if (checkAddServiceSource == 1) {
             return tempSolution;
         } else {
             tempSolution.f = INT_MAX;
@@ -97,6 +102,9 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     // Ciclo su tutte le solution
     while (!stopCondition(historySolution)) {
 
+        int minInteraction = INT_MAX;
+
+        Solution solutionSwapped = tempSolution;
         // Esploro le soluzioni vicine
         for (int i = 0; i < timeSlot; i++) {
             for (int k = 0; k < satellites; k++) {
@@ -112,34 +120,36 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
 
                             for (int j_2 = 0; j_2 < j_2_max; j++) {
 
-                                if (j_2 == j_max) {
-
-                                } else {
-                                    // Applico la swapMove
-                                    swapMove(tempSolution, i, j, k, i_2, j_2, k_2);
+                                // Applico la swapMove
+                                solutionSwapped = swapMove(tempSolution, i, j, k, i_2, j_2, k_2);
+                                if (solutionSwapped.f != INT_MAX) {
+                                    // Ricalcolo della funzione obiettivo
+                                    solutionSwapped.f = objectiveFunction(tempRequests, services, &solutionSwapped,
+                                                                       visibilityMatrix, false);
+                                    if (solutionSwapped.f != INT_MAX){
+                                        if (solutionSwapped.f < minInteraction) {
+                                            //TODO: FARE IL CONTROLLO CHE LA MINSOLUTION.F NON SIA GIA PRESENTE NELLA TABULIST
+                                            minInteraction = minSolution.f;
+                                            minSolution = solutionSwapped;
+                                        }
+                                    }
                                 }
-
                             }
                         }
-                    }
-
-                    // Ricalcolo della funzione obiettivo
-                    tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, false);
-
-                    if (tempSolution.f < minSolution.f) {
-                        minSolution = tempSolution;
                     }
                 }
             }
         }
+        this->tabuList.push_back(minSolution);
         tempSolution = minSolution;
+        std::cout<<"tempSolution.f: "<<tempSolution.f;
     }
-
     return minSolution;
 }
 
 bool TabuSearch::stopCondition(std::vector<float> historySolution) {
 
+    //TODO DEFINIRE LA STOP CONDITION MEGLIO
     if (historySolution.size() > 3)
         return true;
 
