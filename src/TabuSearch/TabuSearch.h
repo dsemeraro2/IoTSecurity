@@ -21,8 +21,8 @@ public:
 
     void optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali);
 
-    void swapMove(int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
-                  int destService, int destSatellite);
+    void swapMove(Solution tempSolution, int sourceTimeSlot, int service, int sourceSatellite,
+                  int destTimeSlot, int destSatellite);
 
     bool stopCondition(std::vector<float> historySolution);
 

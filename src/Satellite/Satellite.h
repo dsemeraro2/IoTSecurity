@@ -45,6 +45,8 @@ public:
     void removeService(int indexService);
 
     bool checkService(int indexService);
+
+    int numberOfServices();
 };
 
 

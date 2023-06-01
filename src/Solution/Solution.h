@@ -10,7 +10,7 @@ private:
 
 public:
 
-    float f;
+    int f;
     std::vector<Constellation> constellations;
 
     Solution(int timeSlot);

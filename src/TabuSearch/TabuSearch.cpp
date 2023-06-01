@@ -42,11 +42,22 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
     }
 }
 
-void TabuSearch::swapMove(int sourceTimeSlot, int sourceService, int sourceSatellite, int destTimeSlot,
-                          int destService, int destSatellite) {
+Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int service, int sourceSatellite,
+                              int destTimeSlot, int destSatellite) {
 
-    allocationServicesMatrix.setValue(sourceTimeSlot, sourceService, sourceSatellite, 0);
-    allocationServicesMatrix.setValue(destTimeSlot, destService, destSatellite, 1);
+    if (tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].checkService(service)) {
+        tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].removeService(service);
+        tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].addService(
+                getServiceById(this->services, service););
+
+        //allocationServicesMatrix.setValue(sourceTimeSlot, sourceService, sourceSatellite, 0);
+        //allocationServicesMatrix.setValue(destTimeSlot, destService, destSatellite, 1);
+
+    } else {
+        tempSolution.f = INT_MAX;
+    }
+
+    return tempSolution;
 }
 
 Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
@@ -60,24 +71,29 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     //Vettore delle soluzioni
     std::vector<float> historySolution;
 
-    // Ciclo su tutte le solution TODO: Check
-    while(!stopCondition(historySolution)){
+    // Ciclo su tutte le solution
+    while (!stopCondition(historySolution)) {
 
         // Esploro le soluzioni vicine
         for (int i = 0; i < timeSlot; i++) {
-            for (int j = 0; j < services.size(); j++) {
-                for (int k = 0; k < satellites; k++) {
+            for (int k = 0; k < satellites; k++) {
+                int j = solution.constellations[i].satellaties[k].numberOfServices();
 
-                    // TODO: Da sistemare gli indici
-                    swapMove(i, j, k, i, j, k);
-
-                    // Ricalcolo della funzione obiettivo
-                    tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, false);
-
-                    if (tempSolution.f < minSolution.f) {
-                        minSolution = tempSolution;
+                // Indici di arrivo
+                for (int i_2 = 0; i_2 < timeSlot; i_2++) {
+                    for (int j_2 = 0; j_2 < j; j++) {
+                        for (int k_2 = 0; k_2 < satellites; k_2++) {
+                            // Applico la swapMove
+                            swapMove(tempSolution, i, j, k, i_2, k_2);
+                        }
                     }
+                }
 
+                // Ricalcolo della funzione obiettivo
+                tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, false);
+
+                if (tempSolution.f < minSolution.f) {
+                    minSolution = tempSolution;
                 }
             }
         }
@@ -87,9 +103,9 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     return minSolution;
 }
 
-bool TabuSearch::stopCondition(std::vector<float> historySolution){
+bool TabuSearch::stopCondition(std::vector<float> historySolution) {
 
-    if(historySolution.size()>3)
+    if (historySolution.size() > 3)
         return true;
 
     return false;

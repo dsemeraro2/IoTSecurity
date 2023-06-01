@@ -79,3 +79,7 @@ bool Satellite::checkService(int idService) {
     return false;
 }
 
+int Satellite::numberOfServices(){
+    return this->services.size();
+}
+

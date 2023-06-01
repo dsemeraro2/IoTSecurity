@@ -167,12 +167,12 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                 }
                 if (!serviceDeployed) {
                     //Se non è in modalità modifica edit mode falso e il servizio non è stato deployato ritorna infinito
-                    return 63550;
+                    return INT_MAX;
                 }
 
             } else if (!editMode && !serviceDeployed) {
                 //Se non è in modalità modifica edit mode falso e il servizio non è stato deployato ritorna infinito
-                return 63550;
+                return INT_MAX;
             }
 
         } else {
