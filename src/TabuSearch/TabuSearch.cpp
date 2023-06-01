@@ -58,17 +58,29 @@ Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sou
         int checkAddServiceDest = tempSolution.constellations[destTimeSlot].satellaties[destSatellite].addService(
                 getServiceById(this->services, sourceService));
 
+        if(checkAddServiceSource == 1 && checkAddServiceDest == 1){
+            return tempSolution;
+        } else {
+            tempSolution.f = INT_MAX;
+            return tempSolution;
+        }
+
         //allocationServicesMatrix.setValue(sourceTimeSlot, sourceService, sourceSatellite, 0);
         //allocationServicesMatrix.setValue(destTimeSlot, destService, destSatellite, 1);
 
-        /*} else {
+    } else if(tempService_1.getId() != -1 && tempService_2.getId() == -1){
+        tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].removeServiceByIndex(sourceService);
+
+        int checkAddServiceSource = tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].addService(
+                getServiceById(this->services, destService));
+
+        if(checkAddServiceSource == 1){
+            return tempSolution;
+        } else {
             tempSolution.f = INT_MAX;
-        }*/
+            return tempSolution;
+        }
     }
-
-
-
-    return tempSolution;
 }
 
 Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
