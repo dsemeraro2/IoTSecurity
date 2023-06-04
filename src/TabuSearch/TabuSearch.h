@@ -29,9 +29,9 @@ public:
 
     Solution tabuSearchIterate(std::vector<Request> tempRequests);
 
-    bool isSolutionInTabuList(const Solution &sourceSol);
+    bool isSolutionInTabuList(Solution &sourceSol);
 
-    bool compareSolution(const Solution &sourceSol, const Solution &destSol);
+    bool compareSolution(Solution &sourceSol, Solution &destSol);
 };
 
 

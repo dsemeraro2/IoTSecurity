@@ -130,6 +130,12 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                                         if (solutionSwapped.f < minInteraction) {
                                             //TODO: FARE IL CONTROLLO CHE LA MINSOLUTION.F NON SIA GIA PRESENTE NELLA TABULIST
 
+                                            /* TODO TO CHECK se è okay
+                                            if(!isSolutionInTabuList(solutionSwapped)){
+                                                minInteraction = minSolution.f;
+                                                minSolution = solutionSwapped;
+                                            }*/
+
                                             minInteraction = minSolution.f;
                                             minSolution = solutionSwapped;
                                         }
@@ -157,7 +163,7 @@ bool TabuSearch::stopCondition(std::vector<float> historySolution) {
     return false;
 }
 
-bool TabuSearch::isSolutionInTabuList(const Solution &sourceSol) {
+bool TabuSearch::isSolutionInTabuList(Solution &sourceSol) {
 
     for (const Solution& solution : tabuList) {
         if (solution.f == sourceSol.f) {
@@ -168,7 +174,7 @@ bool TabuSearch::isSolutionInTabuList(const Solution &sourceSol) {
     return false;
 }
 
-bool TabuSearch::compareSolution(const Solution &sourceSol, const Solution &destSol) { // Li passo per referenza e non per copia
+bool TabuSearch::compareSolution(Solution &sourceSol, Solution &destSol) { // Li passo per referenza e non per copia
 
     // Confronta il valore di f
     if (sourceSol.f != destSol.f) {
