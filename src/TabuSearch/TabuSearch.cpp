@@ -125,10 +125,11 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                                 if (solutionSwapped.f != INT_MAX) {
                                     // Ricalcolo della funzione obiettivo
                                     solutionSwapped.f = objectiveFunction(tempRequests, services, &solutionSwapped,
-                                                                       visibilityMatrix, false);
-                                    if (solutionSwapped.f != INT_MAX){
+                                                                          visibilityMatrix, false);
+                                    if (solutionSwapped.f != INT_MAX) {
                                         if (solutionSwapped.f < minInteraction) {
                                             //TODO: FARE IL CONTROLLO CHE LA MINSOLUTION.F NON SIA GIA PRESENTE NELLA TABULIST
+
                                             minInteraction = minSolution.f;
                                             minSolution = solutionSwapped;
                                         }
@@ -142,7 +143,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
         }
         this->tabuList.push_back(minSolution);
         tempSolution = minSolution;
-        std::cout<<"tempSolution.f: "<<tempSolution.f;
+        std::cout << "tempSolution.f: " << tempSolution.f;
     }
     return minSolution;
 }
@@ -155,3 +156,80 @@ bool TabuSearch::stopCondition(std::vector<float> historySolution) {
 
     return false;
 }
+
+bool TabuSearch::solutionInTabuList(const Solution &sourceSol) {
+
+    for (const Solution& solution : tabuList) {
+        if (solution.f == sourceSol.f) {
+            return true;  // f è gia presente
+        }
+    }
+
+    return false;
+}
+
+bool TabuSearch::compareSolution(const Solution &sourceSol, const Solution &destSol) { // Li passo per referenza e non per copia
+
+    // Confronta il valore di f
+    if (sourceSol.f != destSol.f) {
+        return false;
+    }
+
+    // Confronta il numero di costellazioni
+    if (sourceSol.constellations.size() != destSol.constellations.size()) {
+        return false;
+    }
+
+    // Confronta ogni costellazione
+    for (int i = 0; i < sourceSol.constellations.size(); ++i) {
+        const Constellation &sourceConstellation = sourceSol.constellations[i];
+        const Constellation &destConstellation = destSol.constellations[i];
+
+        // Confronta il numero di satelliti nella costellazione
+        if (sourceConstellation.satellaties.size() != destConstellation.satellaties.size()) {
+            return false;
+        }
+
+        // Confronta ogni satellite
+        for (int j = 0; j < sourceConstellation.satellaties.size(); ++j) {
+            Satellite sourceSatellite = sourceConstellation.satellaties[j];
+            Satellite destSatellite = destConstellation.satellaties[j];
+
+            // Confronta l'ID del satellite
+            if (sourceSatellite.getId() != destSatellite.getId()) {
+                return false;
+            }
+
+            // Confronta il numero di servizi del satellite
+            if (sourceSatellite.numberOfServices() != destSatellite.numberOfServices()) {
+                return false;
+            }
+
+            // Confronta ogni servizio del satellite
+            for (int k = 0; k < sourceSatellite.numberOfServices(); ++k) {
+                const Service &sourceService = sourceSatellite.getServiceByIndex(k);
+                const Service &destService = destSatellite.getServiceByIndex(k);
+
+                // Confronta l'ID del servizio
+                if (sourceService.getId() != destService.getId()) {
+                    return false;
+                }
+
+                // Confronta l'utilizzo di CPU e RAM del servizio
+                if (sourceService.getCpuUsed() != destService.getCpuUsed() ||
+                    sourceService.getRamUsed() != destService.getRamUsed()) {
+                    return false;
+                }
+            }
+
+            // Confronta l'utilizzo di CPU e RAM del satellite
+            if (sourceSatellite.getCpuUsed() != destSatellite.getCpuUsed() ||
+                sourceSatellite.getRamUsed() != destSatellite.getRamUsed()) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+

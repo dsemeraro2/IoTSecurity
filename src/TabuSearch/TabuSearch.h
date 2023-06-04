@@ -28,6 +28,10 @@ public:
     bool stopCondition(std::vector<float> historySolution);
 
     Solution tabuSearchIterate(std::vector<Request> tempRequests);
+
+    bool solutionInTabuList(const Solution &sourceSol);
+
+    bool compareSolution(const Solution &sourceSol, const Solution &destSol);
 };
 
 
