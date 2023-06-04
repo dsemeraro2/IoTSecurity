@@ -29,7 +29,7 @@ public:
 
     Solution tabuSearchIterate(std::vector<Request> tempRequests);
 
-    bool solutionInTabuList(const Solution &sourceSol);
+    bool isSolutionInTabuList(const Solution &sourceSol);
 
     bool compareSolution(const Solution &sourceSol, const Solution &destSol);
 };

@@ -157,7 +157,7 @@ bool TabuSearch::stopCondition(std::vector<float> historySolution) {
     return false;
 }
 
-bool TabuSearch::solutionInTabuList(const Solution &sourceSol) {
+bool TabuSearch::isSolutionInTabuList(const Solution &sourceSol) {
 
     for (const Solution& solution : tabuList) {
         if (solution.f == sourceSol.f) {
