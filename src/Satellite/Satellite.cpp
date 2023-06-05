@@ -91,5 +91,4 @@ Service Satellite::getServiceByIndex(int index){
         return Service(-1, 0,0);
     }
 
-
 }

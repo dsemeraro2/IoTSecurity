@@ -43,7 +43,11 @@ int main() {
 
     std::cout << "Funzione obiettivo: " << solution.f << "\n";
 
-    //TabuSearch tabuSearch = TabuSearch();
+    // Algoritmo di ottimizzazione
+
+    std::cout << "Ottimizzazione:\n";
+    TabuSearch tabuSearch = TabuSearch(T, M, services, requests, solution, visibilityMatrix, allocationServicesMatrix);
+    tabuSearch.optimizationTabuSearch(0, T);
 
     return 0;
 }

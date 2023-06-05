@@ -6,7 +6,7 @@ int simulationTime = 24 * 60 * 60; // Durata totale della simulazione in secondi
 int durataRivoluzione = 94 * 60; // Durata rivoluzione di 1 satellite in secondi
 float timeSlotDuration = durataRivoluzione / M; // Intervallo durata visibilità di M satelliti in secondi
 int timeSlotTotali = ceil(simulationTime / timeSlotDuration); // Numero totali timeslot
-int simulationDeadline = 3 * 60 * 60; // Durata totale di un servizio in secondi
+int simulationDeadline = 1 * 60 * 60; // Durata totale di un servizio in secondi
 int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot entro cui eseguire un servizio
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione

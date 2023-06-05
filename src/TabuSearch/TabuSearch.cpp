@@ -4,15 +4,22 @@
 TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> services,
                        const std::vector<Request> &requests,
                        const Solution &solution, const VisibilityMatrix &visibilityMatrix,
-                       const AllocationServicesMatrix &allocationServicesMatrix) : timeSlot(timeSlot),
-                                                                                   satellites(satellites),
-                                                                                   services(services),
+                       const AllocationServicesMatrix &allocationServicesMatrix) : services(services),
                                                                                    requests(requests),
                                                                                    solution(solution),
                                                                                    visibilityMatrix(
                                                                                            visibilityMatrix),
                                                                                    allocationServicesMatrix(
-                                                                                           allocationServicesMatrix) {}
+                                                                                           allocationServicesMatrix) {
+    this->timeSlot = timeSlot;
+    this->satellites = satellites;
+    this->services = services;
+    this->requests = requests;
+    this->solution = solution;
+    this->visibilityMatrix = visibilityMatrix;
+    this->allocationServicesMatrix = allocationServicesMatrix;
+
+}
 
 void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali) {
 
@@ -29,28 +36,36 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
         }
 
         // Applicazione della swapmove
-        Solution tempSolution = tabuSearchIterate(tempRequests);
+        if (tempRequests.size() > 0) {
 
-        filterTsDone(requests, services, &tempSolution, visibilityMatrix, false, i);
+            Solution tempSolution = tabuSearchIterate(tempRequests);
 
-        // Completamento delle richieste che rispettano il tsDone
-        /*for (int j = 0; j < tempRequests.size(); j++) {
-            // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
-            if (tempRequests[j].getTsDone() <= i) {
-                // Riassegnazione del tempRequest completati in passato alla requests globale
-                requests[tempRequests[j].getIdRequest()] = tempRequests[j];
-            }
-        }*/
+            filterTsDone(requests, services, &tempSolution, visibilityMatrix, false, i);
 
-        solution = tempSolution;
+            // Completamento delle richieste che rispettano il tsDone
+            /*for (int j = 0; j < tempRequests.size(); j++) {
+                // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
+                if (tempRequests[j].getTsDone() <= i) {
+                    // Riassegnazione del tempRequest completati in passato alla requests globale
+                    requests[tempRequests[j].getIdRequest()] = tempRequests[j];
+                }
+            }*/
+
+            solution = tempSolution;
+        } else {
+            std::cout << "Nessuna richiesta trovata!";
+        }
     }
 }
 
 Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
                               int destTimeSlot, int destService, int destSatellite) {
 
+    std::cout<<"Swap move...\n";
+
     Service tempService_1 = tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].getServiceByIndex(
             sourceService);
+
     Service tempService_2 = tempSolution.constellations[destTimeSlot].satellaties[destSatellite].getServiceByIndex(
             destService);
 
@@ -99,6 +114,9 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     Solution tempSolution = solution;
     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
 
+    this->solution = tempSolution;
+    //TODO VERIFICARE CHE NELLA CREAZIONE SE ESCE UNA SOLUTIONE INFINITO, NELLA PRIMA SOLUTION
+
     // Soluzione minimo
     Solution minSolution = tempSolution;
 
@@ -125,7 +143,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                             int j_2_max = solution.constellations[i_2].satellaties[k_2].numberOfServices() + 1;
 
                             for (int j_2 = 0; j_2 < j_2_max; j++) {
-
+                                std::cout<<"...\n";
                                 // Applico la swapMove
                                 solutionSwapped = swapMove(tempSolution, i, j, k, i_2, j_2, k_2);
                                 if (solutionSwapped.f != INT_MAX) {
@@ -139,6 +157,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                                                 minInteraction = minSolution.f;
                                                 minSolution = solutionSwapped;
                                             }
+                                            //TODO GESTIRE CASO UNFEASIBLE
                                         }
                                     }
                                 }
@@ -148,9 +167,12 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                 }
             }
         }
+        std::cout << "MinSolution aggiunto in TabuList: " << minSolution.f << "\n";
         this->tabuList.push_back(minSolution);
         tempSolution = minSolution;
-        std::cout << "tempSolution.f: " << tempSolution.f;
+        //std::cout << "tempSolution.f: " << tempSolution.f << "\n";
+        historySolution.push_back(tempSolution.f);
+
     }
     return minSolution;
 }
@@ -158,9 +180,10 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
 bool TabuSearch::stopCondition(std::vector<float> historySolution) {
 
     //TODO DEFINIRE LA STOP CONDITION MEGLIO
-    if (historySolution.size() > 3)
+    if (historySolution.size() > 300) {
+        std::cout << "\nStopping condition TRUE\n";
         return true;
-
+    }
     return false;
 }
 
@@ -286,6 +309,8 @@ void TabuSearch::filterTsDone(std::vector<Request> &requests, std::vector<Servic
                                 // Verifico che il timeSlot di completamento deve essere minore al timeSlot attuale
                                 if (initialTimeSlot + j <= currentTimeSlot) {
                                     requests[i].setTsDone(initialTimeSlot + j);
+
+                                    std::cout << "Request done ";
                                 }
                                 break;
                             }
