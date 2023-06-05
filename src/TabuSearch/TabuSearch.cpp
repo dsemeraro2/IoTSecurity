@@ -31,17 +31,18 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
         // Applicazione della swapmove
         Solution tempSolution = tabuSearchIterate(tempRequests);
 
-        //TODO DA ASSEGNARE IL TSDONE è un ciclo in quanto va per tutte le richieste
-        // SIMILE ALLA FUNZIONE OBIETTIVO CAMBIANDO IL LIMETE TEMPORALE CHE CORRISPONDE AD I
+        filterTsDone(requests, services, &tempSolution, visibilityMatrix, false, i);
 
         // Completamento delle richieste che rispettano il tsDone
-        for (int j = 0; j < tempRequests.size(); j++) {
+        /*for (int j = 0; j < tempRequests.size(); j++) {
             // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
             if (tempRequests[j].getTsDone() <= i) {
                 // Riassegnazione del tempRequest completati in passato alla requests globale
                 requests[tempRequests[j].getIdRequest()] = tempRequests[j];
             }
-        }
+        }*/
+
+        solution = tempSolution;
     }
 }
 
@@ -86,6 +87,8 @@ Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sou
             return tempSolution;
         }
     }
+
+    return tempSolution;
 }
 
 Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
@@ -131,16 +134,11 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                                                                           visibilityMatrix, false);
                                     if (solutionSwapped.f != INT_MAX) {
                                         if (solutionSwapped.f < minInteraction) {
-                                            //TODO: FARE IL CONTROLLO CHE LA MINSOLUTION.F NON SIA GIA PRESENTE NELLA TABULIST
 
-                                            /* TODO TO CHECK se è okay
-                                            if(!isSolutionInTabuList(solutionSwapped)){
+                                            if (!isSolutionInTabuList(solutionSwapped)) {
                                                 minInteraction = minSolution.f;
                                                 minSolution = solutionSwapped;
-                                            }*/
-
-                                            minInteraction = minSolution.f;
-                                            minSolution = solutionSwapped;
+                                            }
                                         }
                                     }
                                 }
@@ -169,13 +167,13 @@ bool TabuSearch::stopCondition(std::vector<float> historySolution) {
 bool TabuSearch::isSolutionInTabuList(Solution &sourceSol) {
 
     int count = 0;
-    for (Solution& destSol : this->tabuList) {
-       if(!compareSolution(sourceSol, destSol)){
-           count++;
-       }
+    for (Solution &destSol: this->tabuList) {
+        if (!compareSolution(sourceSol, destSol)) {
+            count++;
+        }
     }
 
-    if(count == tabuList.size()){
+    if (count == tabuList.size()) {
         return true;
     } else {
         return false;
@@ -248,3 +246,55 @@ bool TabuSearch::compareSolution(Solution &sourceSol, Solution &destSol) { // Li
     return true;
 }
 
+void TabuSearch::filterTsDone(std::vector<Request> &requests, std::vector<Service> services, Solution *solution,
+                              VisibilityMatrix visibilityMatrix, bool editMode, int currentTimeSlot) {
+
+    std::cout << "Request size: " << requests.size() << "\n";
+    bool serviceDeployed = false;
+
+    // i numero delle richieste
+    for (int i = 0; i < requests.size(); i++) {
+
+        serviceDeployed = false;
+
+        Service tempService = getServiceById(services, requests[i].getIdService());
+
+        int delayRequestCollection = 1; //Delay della raccolta del servizio verso i satelliti, 1 timeslot
+        int delayRequestOptimization = 2; //Delay della ottimizzazione + deploy del servizio, 2 timeslot (contenente l'elaborazione + il deploy)
+
+        int initialTimeSlot = requests[i].getTsGenerate();
+        int deadlineTimeSlot = requests[i].getTsDeadline();
+
+        if (tempService.getId() != -1) {
+
+            //j numero della deadlineTimeSlot del singolo servizio DOVREBBE ESSERE IL MASSIMO
+            for (int j = initialTimeSlot + delayRequestCollection + delayRequestOptimization;
+                 j < deadlineTimeSlot; j++) {
+
+                //k numero dei satelliti
+                for (int k = 0; k < solution->constellations[j].satellaties.size(); k++) {
+
+                    std::vector<Service> listServicesSatellite = solution->constellations[j].satellaties[k].getServices();
+
+                    //m Numero dei diversi servizi del satellite
+                    for (int m = 0; m < listServicesSatellite.size(); m++) {
+
+                        if (listServicesSatellite[m].getId() == tempService.getId()) {
+                            if (visibilityMatrix(j, tempService.getId(), k) == 1) {
+
+                                serviceDeployed = true;
+                                // Verifico che il timeSlot di completamento deve essere minore al timeSlot attuale
+                                if (initialTimeSlot + j <= currentTimeSlot) {
+                                    requests[i].setTsDone(initialTimeSlot + j);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    if (serviceDeployed) break;
+                }
+                if (serviceDeployed) break;
+            }
+        }
+    }
+}

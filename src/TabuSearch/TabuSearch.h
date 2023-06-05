@@ -32,6 +32,9 @@ public:
     bool isSolutionInTabuList(Solution &sourceSol);
 
     bool compareSolution(Solution &sourceSol, Solution &destSol);
+
+    void filterTsDone(std::vector<Request> &requests, std::vector<Service> services, Solution *solution,
+                                   VisibilityMatrix visibilityMatrix, bool editMode, int currentTimeSlot);
 };
 
 
