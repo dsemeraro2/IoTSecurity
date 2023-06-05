@@ -211,7 +211,7 @@ bool TabuSearch::isSolutionInTabuList(Solution &sourceSol) {
 
 }
 
-bool TabuSearch::compareSolution(Solution &sourceSol, Solution &destSol) { // Li passo per referenza e non per copia
+bool TabuSearch::compareSolution(const Solution &sourceSol, const Solution &destSol) { // Li passo per referenza e non per copia
 
     // Confronta il valore di f
     if (sourceSol.f != destSol.f) {
