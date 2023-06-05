@@ -55,6 +55,7 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
             solution = tempSolution;
 
             //TODO SALVARE SU FILE SOLUTION.F -- DA VERIFICARE CHE F VENGA VALORIZZATO
+
         } else {
             std::cout << "Nessuna richiesta trovata!";
         }
@@ -115,7 +116,9 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     tabuList.clear();
 
     Solution tempSolution = solution;
+    //TODO SALVARE F PRIMA
     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
+    //TODO VERIFICARE F DOPO
 
     this->solution = tempSolution;
     //TODO VERIFICARE CHE NELLA CREAZIONE SE ESCE UNA SOLUTIONE INFINITO, NELLA PRIMA SOLUTION
