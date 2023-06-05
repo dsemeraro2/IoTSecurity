@@ -116,9 +116,16 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     tabuList.clear();
 
     Solution tempSolution = solution;
-    //TODO SALVARE F PRIMA
+
+    // Salvataggio f prima di eseguire l'ottimizzazione
+    std::string fBeforeFilename = "f_before.txt";
+    saveFValueToFile(tempSolution.f, fBeforeFilename);
+
     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
-    //TODO VERIFICARE F DOPO
+
+    // Salvataggio f dopo l'ottimizzazione
+    std::string fAfterFilename = "f_after.txt";
+    saveFValueToFile(tempSolution.f, fAfterFilename);
 
     this->solution = tempSolution;
     //TODO VERIFICARE CHE NELLA CREAZIONE SE ESCE UNA SOLUTIONE INFINITO, NELLA PRIMA SOLUTION

@@ -231,3 +231,15 @@ void saveSolutionToFile (const Solution &solution, const std::string &folderPath
         std::cout << "Impossibile aprire il file: " << filename << "\n";
     }
 }
+
+void saveFValueToFile(int fValue, const std::string &filename) {
+    std::ofstream file(filename, std::ios::app);
+
+    if (file.is_open()) {
+        file << fValue << "\n";
+        file.close();
+        std::cout << "Valore di f salvato correttamente su file: " << filename << "\n";
+    } else {
+        std::cout << "Impossibile aprire il file: " << filename << "\n";
+    }
+}

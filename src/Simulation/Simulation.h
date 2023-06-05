@@ -47,7 +47,7 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
 // Funzione salvataggio costellazioni
 void saveSolutionToFile (const Solution &solution, const std::string &folderPath, const std::string &fileName, int constellationIndex);
 
-
-
+// Funzione salvataggio di f di ogni costellazione calcolata
+void saveFValueToFile(int fValue, const std::string &filename);
 
 #endif //IOTSECURITY_SIMULATION_H
