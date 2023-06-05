@@ -90,6 +90,9 @@ Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sou
 
 Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
 
+    // Mi ripulisco la tabuList per ogni oggetto di Solution
+    tabuList.clear();
+
     Solution tempSolution = solution;
     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
 
@@ -165,13 +168,19 @@ bool TabuSearch::stopCondition(std::vector<float> historySolution) {
 
 bool TabuSearch::isSolutionInTabuList(Solution &sourceSol) {
 
-    for (Solution& solution : this->tabuList) {
-        if (solution.f == sourceSol.f) {
-            return true;  // f è gia presente
-        }
+    int count = 0;
+    for (Solution& destSol : this->tabuList) {
+       if(!compareSolution(sourceSol, destSol)){
+           count++;
+       }
     }
 
-    return false;
+    if(count == tabuList.size()){
+        return true;
+    } else {
+        return false;
+    }
+
 }
 
 bool TabuSearch::compareSolution(Solution &sourceSol, Solution &destSol) { // Li passo per referenza e non per copia
