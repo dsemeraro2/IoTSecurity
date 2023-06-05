@@ -3,6 +3,8 @@
 
 #include <cmath>
 #include <vector>
+#include <fstream>
+#include <filesystem>
 #include "../Service/Service.h"
 #include "../Cluster/Cluster.h"
 #include "../Request/Request.h"
@@ -41,5 +43,11 @@ Service getServiceById(std::vector<Service> listOfServices, int id);
 //Funzione obiettivo
 int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution *solution,
                       VisibilityMatrix visibilityMatrix, bool editMode);
+
+// Funzione salvataggio costellazioni
+void saveSolutionToFile (const Solution &solution, const std::string &folderPath, const std::string &fileName, int constellationIndex);
+
+
+
 
 #endif //IOTSECURITY_SIMULATION_H
