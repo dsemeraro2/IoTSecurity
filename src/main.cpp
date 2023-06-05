@@ -50,7 +50,7 @@ void saveSolutionToFile (const Solution &solution, const std::string &folderPath
         }
 
         file.close();
-        std::cout << "Soluzione salvata correttamente su file: " << filename << "\n";
+        //std::cout << "Soluzione salvata correttamente su file: " << filename << "\n";
     } else {
         std::cout << "Impossibile aprire il file: " << filename << "\n";
     }
@@ -84,12 +84,12 @@ int main() {
     VisibilityMatrix visibilityMatrix = VisibilityMatrix(T, N, M);
     visibilityMatrix.initialize();
 
-    std::cout << "Funzione obiettivo: " << solution.f << "\n";
+    //std::cout << "Funzione obiettivo: " << solution.f << "\n";
 
     //Salvataggio su file prima dell'ottimizzazione
     for (int i = 0; i < solution.constellations.size(); ++i) {
         const Constellation& constellation = solution.constellations[i];
-        saveSolutionToFile(solution, "./solution_constellation_old", "/solution_constellation_old", i);
+        saveSolutionToFile(solution, "./solution_constellation_old", "/solution_constellation_old_", i);
     }
 
     // Algoritmo di ottimizzazione
@@ -100,7 +100,7 @@ int main() {
     //Salvataggio su file fopo l'ottimizzazione
     for (int i = 0; i < solution.constellations.size(); ++i) {
         const Constellation& constellation = solution.constellations[i];
-        saveSolutionToFile(solution, "./solution_constellation_new", "/solution_constellation_new", i);
+        saveSolutionToFile(solution, "./solution_constellation_new", "/solution_constellation_new_", i);
     }
 
     return 0;
