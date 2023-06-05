@@ -56,6 +56,10 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
 
             //TODO SALVARE SU FILE SOLUTION.F -- DA VERIFICARE CHE F VENGA VALORIZZATO
 
+            // Salvataggio f dopo l'ottimizzazione
+            //std::string fAfterFilename = "f_after.txt";
+            //saveFValueToFile(tempSolution.f, fAfterFilename);
+
         } else {
             std::cout << "Nessuna richiesta trovata!";
         }
@@ -124,8 +128,8 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
 
     // Salvataggio f dopo l'ottimizzazione
-    std::string fAfterFilename = "f_after.txt";
-    saveFValueToFile(tempSolution.f, fAfterFilename);
+    //std::string fAfterFilename = "f_after.txt";
+    //saveFValueToFile(tempSolution.f, fAfterFilename);
 
     this->solution = tempSolution;
     //TODO VERIFICARE CHE NELLA CREAZIONE SE ESCE UNA SOLUTIONE INFINITO, NELLA PRIMA SOLUTION
@@ -180,8 +184,19 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                 }
             }
         }
-        std::cout << "MinSolution aggiunto in TabuList: " << minSolution.f << "\n";
-        //TODO PRendere la migliore soluzione di tutta la tabusearch iterate
+        std::cout << "MinSolution added in TabuList: " << minSolution.f << "\n";
+
+        //TODO Prendere la migliore soluzione di tutta la tabusearch iterate
+        if(tabuList.size() > 0){
+            Solution bestSolution = tabuList[0];
+            for (const Solution& solution : tabuList) {
+                if (compareSolution(solution, bestSolution)) {
+                    bestSolution = solution;
+                }
+            }
+            std::cout<< "Best f solution:"<< bestSolution.f << "\n";
+        }
+
         this->tabuList.push_back(minSolution);
         tempSolution = minSolution;
         //std::cout << "tempSolution.f: " << tempSolution.f << "\n";
@@ -337,3 +352,12 @@ void TabuSearch::filterTsDone(std::vector<Request> &requests, std::vector<Servic
         }
     }
 }
+
+bool TabuSearch::compareBestSolution(const Solution& sourceSol, const Solution& destSol) {
+    if (sourceSol.f < destSol.f) {
+        return true;  // La seconda soluzione è migliore della prima
+    } else {
+        return false; // La prima soluzione è migliore della seconda
+    }
+}
+

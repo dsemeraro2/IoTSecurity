@@ -35,6 +35,8 @@ public:
 
     void filterTsDone(std::vector<Request> &requests, std::vector<Service> services, Solution *solution,
                                    VisibilityMatrix visibilityMatrix, bool editMode, int currentTimeSlot);
+
+    bool compareBestSolution(const Solution& sourceSol, const Solution& destSol);
 };
 
 
