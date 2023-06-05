@@ -174,6 +174,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
             }
         }
         std::cout << "MinSolution aggiunto in TabuList: " << minSolution.f << "\n";
+        //TODO PRendere la migliore soluzione di tutta la tabusearch iterate
         this->tabuList.push_back(minSolution);
         tempSolution = minSolution;
         //std::cout << "tempSolution.f: " << tempSolution.f << "\n";
