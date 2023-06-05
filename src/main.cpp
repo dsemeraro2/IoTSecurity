@@ -49,5 +49,7 @@ int main() {
     TabuSearch tabuSearch = TabuSearch(T, M, services, requests, solution, visibilityMatrix, allocationServicesMatrix);
     tabuSearch.optimizationTabuSearch(0, T);
 
+    //TODO SALVATAGGIO SU TXT LA CONFIGURAZIONE di costellation
+
     return 0;
 }

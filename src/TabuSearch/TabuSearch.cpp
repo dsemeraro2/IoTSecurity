@@ -31,6 +31,7 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
         for (int j = 0; j < requests.size(); j++) {
             // Verifico che il ts generate sia minore o uguale al timeslot corrente e che non sia gia tsDone
             if (requests[j].getTsGenerate() <= i && requests[j].getTsDone() == -1) {
+                //TODO CHECK se funziona la condizione
                 tempRequests.push_back(requests[j]);
             }
         }
@@ -52,6 +53,8 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
             }*/
 
             solution = tempSolution;
+
+            //TODO SALVARE SU FILE SOLUTION.F -- DA VERIFICARE CHE F VENGA VALORIZZATO
         } else {
             std::cout << "Nessuna richiesta trovata!";
         }
