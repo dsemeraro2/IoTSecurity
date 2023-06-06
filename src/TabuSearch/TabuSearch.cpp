@@ -360,4 +360,3 @@ bool TabuSearch::compareBestSolution(const Solution& sourceSol, const Solution& 
         return false; // La prima soluzione è migliore della seconda
     }
 }
-
