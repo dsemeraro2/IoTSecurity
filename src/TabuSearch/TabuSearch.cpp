@@ -142,9 +142,9 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
     // Mi ripulisco la tabuList per ogni oggetto di Solution
     tabuList.clear();
 
-    Solution tempSolution = solution;
+    solution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
 
-    tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
+    Solution tempSolution = solution;
 
     // Salvataggio f dopo l'ottimizzazione
     //std::string fAfterFilename = "f_after.txt";
@@ -183,7 +183,8 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
                             for (int j_2 = 0; j_2 < j_2_max; j++) {
                                 std::cout<<"...\n";
                                 // Applico la swapMove
-                                solutionSwapped = swapMove(tempSolution, i, j, k, i_2, j_2, k_2);
+                                solutionSwapped = tempSolution;
+                                swapMove(solutionSwapped, i, j, k, i_2, j_2, k_2);
                                 if (solutionSwapped.f != INT_MAX) {
                                     // Ricalcolo della funzione obiettivo
                                     solutionSwapped.f = objectiveFunction(tempRequests, services, &solutionSwapped,

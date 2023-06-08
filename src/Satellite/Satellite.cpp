@@ -85,7 +85,7 @@ int Satellite::numberOfServices(){
 
 Service Satellite::getServiceByIndex(int index){
 
-    if(index <= this->numberOfServices()){
+    if(index < this->numberOfServices()){
         return this->services[index];
     } else {
         return Service(-1, 0,0);
