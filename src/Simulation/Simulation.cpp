@@ -11,7 +11,7 @@ int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot 
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
 int T = timeSlotTotali;
-int N = 10;
+int N = 3;
 int M = 3;
 
 std::vector<Cluster> initializeClusters() {
@@ -93,7 +93,7 @@ Service getServiceById(std::vector<Service> listOfServices, int id) {
 int objectiveFunction(std::vector<Request> requests, std::vector<Service> services, Solution *solution,
                       VisibilityMatrix visibilityMatrix, bool editMode) {
 
-    std::cout << "Request size: " << requests.size() << "\n";
+    //std::cout << "Request size: " << requests.size() << "\n";
     int f = 0; //Ritardo da minimizzare
     bool serviceDeployed = false;
 
@@ -189,49 +189,3 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
 // Funzione obiettivo: Definita
 // Tabu List Management: Lista delle soluzioni gia visitati
 // Generate Neighbords: La funzione swap(?) ovvero generare nuovi vicini da valutare
-
-// Funzione per salvare sul file le costellazioni
-void saveSolutionToFile(const Solution &solution, const std::string &folderPath, const std::string &fileName,
-                        int constellationIndex) {
-    std::filesystem::create_directory(folderPath);
-
-    std::string filename = folderPath + fileName + std::to_string(constellationIndex) + ".txt";
-    std::ofstream file(filename);
-
-    if (file.is_open()) {
-        // Salva le informazioni generali della soluzione
-        //file << "Time Slot: " << solution.timeSlot << "\n";
-        file << "f: " << solution.f << "\n";
-        file << "Constellations: " << solution.constellations.size() << "\n\n";
-
-        // Salva le informazioni di ogni costellazione
-        for (const Constellation &constellation: solution.constellations) {
-            //file << "Constellation (mMax = " << constellation.mMax << ")\n";
-            file << "Satellites: " << constellation.satellaties.size() << "\n";
-
-            // Salva le informazioni di ogni satellite nella costellazione
-            for (const Satellite &satellite: constellation.satellaties) {
-                file << "Satellite (id = " << satellite.getId() << ", cpu = " << satellite.getCpu()
-                     << ", ram = " << satellite.getRam() << ")\n";
-                file << "Services: " << satellite.getServices().size();
-
-                // Salva le informazioni di ogni servizio nel satellite
-                for (const Service &service: satellite.getServices()) {
-                    file << "Service (id = " << service.getId() << ", cpuUsed = " << service.getCpuUsed()
-                         << ", ramUsed = " << service.getRamUsed() << ")\n";
-                }
-
-                file << "\n";
-            }
-
-            file << "\n";
-        }
-
-        file.close();
-        //std::cout << "Soluzione salvata correttamente su file: " << filename << "\n";
-    } else {
-        std::cout << "Impossibile aprire il file: " << filename << "\n";
-    }
-}
-
-

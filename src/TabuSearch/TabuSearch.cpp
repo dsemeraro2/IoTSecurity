@@ -21,7 +21,6 @@ TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> servic
 
 }
 
-
 void saveFValueToFile(std::vector<float> fValue, const std::string &filename) {
     std::ofstream file(filename, std::ios::trunc);
 
@@ -31,6 +30,48 @@ void saveFValueToFile(std::vector<float> fValue, const std::string &filename) {
         }
         file.close();
         //std::cout << "Valore di f salvato correttamente su file: " << filename << "\n";
+    } else {
+        std::cout << "Impossibile aprire il file: " << filename << "\n";
+    }
+}
+
+// Funzione per salvare sul file le costellazioni
+void saveSolutionToFile(const Solution &solution, const std::string &folderPath, const std::string &filename,
+                        int constellationIndex) {
+
+    //std::filesystem::create_directory(folderPath);
+    //std::string filename = folderPath + fileName + std::to_string(constellationIndex) + ".txt";
+
+    std::ofstream file(filename, std::ios::trunc);
+
+    if (file.is_open()) {
+        // Salva le informazioni generali della soluzione
+        //file << "Time Slot: " << solution.timeSlot << "\n";
+        //file << "f: " << solution.f << "\n";
+        //file << "Constellations: " << solution.constellations.size() << "\n\n";
+
+        // Salva le informazioni di ogni costellazione
+        for (const Constellation &constellation: solution.constellations) {
+            //file << "Constellation (mMax = " << constellation.mMax << ")\n";
+            //file << "Satellites: " << constellation.satellaties.size() << "\n";
+
+            // Salva le informazioni di ogni satellite nella costellazione
+            for (const Satellite &satellite: constellation.satellaties) {
+                file << satellite.getCpuUsed() << "," << satellite.getRamUsed()<< "\n";
+                //file << "Services: " << satellite.getServices().size();
+
+                // Salva le informazioni di ogni servizio nel satellite
+                //for (const Service &service: satellite.getServices()) {
+                //    file << "Service (id = " << service.getId() << ", cpuUsed = " << service.getCpuUsed()
+                //         << ", ramUsed = " << service.getRamUsed() << ")\n";
+                //}
+                file << "\n";
+            }
+            //file << "\n";
+        }
+
+        file.close();
+        //std::cout << "Soluzione salvata correttamente su file: " << filename << "\n";
     } else {
         std::cout << "Impossibile aprire il file: " << filename << "\n";
     }
@@ -87,6 +128,9 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
     // Salvataggio f dopo l'ottimizzazione
     std::string fAfterFilename = "f_avarage.txt";
     saveFValueToFile(vectorF, fAfterFilename);
+
+    saveSolutionToFile( solution, "", "constellation.txt", 0);
+
 }
 
 void TabuSearch::swapMove(Solution &tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
@@ -191,8 +235,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
                                         solutionSwapped.f = objectiveFunction(tempRequests, services, &solutionSwapped,
                                                                               visibilityMatrix, false);
                                         if (solutionSwapped.f != INT_MAX) {
-                                            //system("pause");
-                                            std::cout << "Ritardo SS.f:" << solutionSwapped.f;
+                                            //std::cout << "Ritardo SS.f:" << solutionSwapped.f;
                                             if (solutionSwapped.f < minInteraction) {
                                                 if (!isSolutionInTabuList(solutionSwapped)) {
                                                     minInteraction = minSolution.f;
@@ -217,7 +260,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
                     bestSolution = solution;
                 }
             }
-            std::cout << "MinSolution added in TabuList: " << minSolution.f << "\n";
+            //std::cout << "MinSolution added in TabuList: " << minSolution.f << "\n";
         }
 
         this->tabuList.push_back(minSolution);
@@ -228,8 +271,8 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
     }
 
     // Salvataggio f dopo l'ottimizzazione
-    std::string fAfterFilename = "f_slot_" + std::to_string(currentIndex) + ".txt";
-    saveFValueToFile(historySolution, fAfterFilename);
+    //std::string fAfterFilename = "f_slot_" + std::to_string(currentIndex) + ".txt";
+    //saveFValueToFile(historySolution, fAfterFilename);
 
     return minSolution;
 }
@@ -330,7 +373,7 @@ bool TabuSearch::compareSolution(const Solution &sourceSol,
 void TabuSearch::filterTsDone(std::vector<Request> &requests, std::vector<Service> services, Solution *solution,
                               VisibilityMatrix visibilityMatrix, bool editMode, int currentTimeSlot) {
 
-    std::cout << "Request size: " << requests.size() << "\n";
+    //std::cout << "Request size: " << requests.size() << "\n";
     bool serviceDeployed = false;
 
     // i numero delle richieste
@@ -367,8 +410,6 @@ void TabuSearch::filterTsDone(std::vector<Request> &requests, std::vector<Servic
                                 // Verifico che il timeSlot di completamento deve essere minore al timeSlot attuale
                                 if (initialTimeSlot + j <= currentTimeSlot) {
                                     requests[i].setTsDone(initialTimeSlot + j);
-
-                                    std::cout << "Request done ";
                                 }
                                 break;
                             }
