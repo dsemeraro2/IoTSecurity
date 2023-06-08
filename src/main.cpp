@@ -43,22 +43,10 @@ int main() {
 
     //std::cout << "Funzione obiettivo: " << solution.f << "\n";
 
-    //Salvataggio su file prima dell'ottimizzazione
-    for (int i = 0; i < solution.constellations.size(); ++i) {
-        const Constellation& constellation = solution.constellations[i];
-        saveSolutionToFile(solution, "./solution_constellation_old", "/solution_constellation_old_", i);
-    }
-
     // Algoritmo di ottimizzazione
     std::cout << "Ottimizzazione:\n";
     TabuSearch tabuSearch = TabuSearch(T, M, services, requests, solution, visibilityMatrix, allocationServicesMatrix);
     tabuSearch.optimizationTabuSearch(0, T);
-
-    //Salvataggio su file fopo l'ottimizzazione
-    for (int i = 0; i < solution.constellations.size(); ++i) {
-        const Constellation& constellation = solution.constellations[i];
-        saveSolutionToFile(solution, "./solution_constellation_new", "/solution_constellation_new_", i);
-    }
 
     return 0;
 }

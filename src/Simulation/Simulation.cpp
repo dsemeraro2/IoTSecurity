@@ -75,7 +75,6 @@ std::vector<Request> initializeRequests(std::vector<Service> services, int seedR
             if (t_next <= (timeSlotTotali - timeSlotDeadline)) {
                 requests.push_back({countIdRequest++, i, t_next, t_next + timeSlotDeadline, -1, i % sizeService});
             }
-
         }
     }
     return requests;
@@ -128,7 +127,7 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
                     for (int m = 0; m < listServicesSatellite.size(); m++) {
 
                         if (listServicesSatellite[m].getId() == tempService.getId()) {
-                            if (visibilityMatrix(j, tempService.getId(), k) == 1) {
+                            if (visibilityMatrix.getValue(j, tempService.getId(), k) == 1) {
                                 serviceDeployed = true;
                                 f = f + (j - initialTimeSlot);
                                 //std::cout << "Funzione obiettivo: " << f << "\n";
@@ -144,13 +143,15 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
             if (editMode && !serviceDeployed) {
                 //Codice di aggiunta servizi sul satelliti
 
-                for (int j = initialTimeSlot + delayRequestCollection + delayRequestOptimization;
-                     j < deadlineTimeSlot; j++) {
+                //for (int j = initialTimeSlot + delayRequestCollection + delayRequestOptimization;
+                //     j < deadlineTimeSlot; j++) {
 
+                for (int j = deadlineTimeSlot;
+                     j > initialTimeSlot + delayRequestCollection + delayRequestOptimization; j--) {
                     //k numero dei satelliti
                     for (int k = 0; k < solution->constellations[j].satellaties.size(); k++) {
 
-                        if (visibilityMatrix(j, tempService.getId(), k) == 1) {
+                        if (visibilityMatrix.getValue(j, tempService.getId(), k) == 1) {
 
                             bool allocated = solution->constellations[j].satellaties[k].addService(tempService);
 
@@ -190,7 +191,8 @@ int objectiveFunction(std::vector<Request> requests, std::vector<Service> servic
 // Generate Neighbords: La funzione swap(?) ovvero generare nuovi vicini da valutare
 
 // Funzione per salvare sul file le costellazioni
-void saveSolutionToFile (const Solution &solution, const std::string &folderPath, const std::string &fileName, int constellationIndex) {
+void saveSolutionToFile(const Solution &solution, const std::string &folderPath, const std::string &fileName,
+                        int constellationIndex) {
     std::filesystem::create_directory(folderPath);
 
     std::string filename = folderPath + fileName + std::to_string(constellationIndex) + ".txt";
@@ -203,18 +205,18 @@ void saveSolutionToFile (const Solution &solution, const std::string &folderPath
         file << "Constellations: " << solution.constellations.size() << "\n\n";
 
         // Salva le informazioni di ogni costellazione
-        for (const Constellation& constellation : solution.constellations) {
+        for (const Constellation &constellation: solution.constellations) {
             //file << "Constellation (mMax = " << constellation.mMax << ")\n";
             file << "Satellites: " << constellation.satellaties.size() << "\n";
 
             // Salva le informazioni di ogni satellite nella costellazione
-            for (const Satellite& satellite : constellation.satellaties) {
+            for (const Satellite &satellite: constellation.satellaties) {
                 file << "Satellite (id = " << satellite.getId() << ", cpu = " << satellite.getCpu()
                      << ", ram = " << satellite.getRam() << ")\n";
                 file << "Services: " << satellite.getServices().size();
 
                 // Salva le informazioni di ogni servizio nel satellite
-                for (const Service& service : satellite.getServices()) {
+                for (const Service &service: satellite.getServices()) {
                     file << "Service (id = " << service.getId() << ", cpuUsed = " << service.getCpuUsed()
                          << ", ramUsed = " << service.getRamUsed() << ")\n";
                 }
@@ -232,14 +234,4 @@ void saveSolutionToFile (const Solution &solution, const std::string &folderPath
     }
 }
 
-void saveFValueToFile(int fValue, const std::string &filename) {
-    std::ofstream file(filename, std::ios::app);
 
-    if (file.is_open()) {
-        file << fValue << "\n";
-        file.close();
-        std::cout << "Valore di f salvato correttamente su file: " << filename << "\n";
-    } else {
-        std::cout << "Impossibile aprire il file: " << filename << "\n";
-    }
-}

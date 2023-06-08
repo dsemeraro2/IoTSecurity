@@ -29,6 +29,15 @@ int VisibilityMatrix::getTMax() const {
     return tMax;
 }
 
+// Get a della matrice alle coordinate (tMax,nMax,mMax)
+int VisibilityMatrix::getValue(int t, int n, int m) {
+    if(t<tMax && n<nMax && m < mMax) {
+        return data[t][n][m];
+    } else {
+        return 0;
+    }
+}
+
 // Set a value a un'elemento della matrice alle coordinate (tMax,nMax,mMax)
 void VisibilityMatrix::setValue(int t, int n, int m, int value) {
     // Controlla se gli indici sono validi

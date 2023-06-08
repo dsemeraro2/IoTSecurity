@@ -16,15 +16,16 @@ public:
     VisibilityMatrix(int t, int n, int m);
 
     // Restituisce l'elemento della matrice alle coordinate (tMax,nMax,mMax)
-    int &operator()(int t, int n, int m) {
-        return data[t][n][m];
-    }
+
 
     int getNMax() const;
 
     int getMMax() const;
 
     int getTMax() const;
+
+    // Restituisce l'elemento della matrice alle coordinate (tMax,nMax,mMax)
+    int getValue(int t, int n, int m);
 
     // Set a value a un'elemento della matrice alle coordinate (tMax,nMax,mMax)
     void setValue(int t, int n, int m, int value);

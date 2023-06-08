@@ -21,7 +21,24 @@ TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> servic
 
 }
 
+
+void saveFValueToFile(std::vector<float> fValue, const std::string &filename) {
+    std::ofstream file(filename, std::ios::app);
+
+    if (file.is_open()) {
+        for(int i =0; i<fValue.size(); i++){
+            file << fValue[i] << "\n";
+        }
+        file.close();
+        std::cout << "Valore di f salvato correttamente su file: " << filename << "\n";
+    } else {
+        std::cout << "Impossibile aprire il file: " << filename << "\n";
+    }
+}
+
 void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali) {
+
+    std::vector<float> vectorF;
 
     for (int i = timeSlotInitial; i < timeSlotTotali; i++) {
 
@@ -56,13 +73,18 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
 
             //TODO SALVARE SU FILE SOLUTION.F -- DA VERIFICARE CHE F VENGA VALORIZZATO
 
-            // Salvataggio f dopo l'ottimizzazione
-            //std::string fAfterFilename = "f_after.txt";
-            //saveFValueToFile(tempSolution.f, fAfterFilename);
+
+            vectorF.push_back(tempSolution.f);
 
         } else {
             std::cout << "Nessuna richiesta trovata!";
         }
+    }
+
+    // Salvataggio f dopo l'ottimizzazione
+    for(int i=0; i<vectorF.size(); i++){
+        std::string fAfterFilename = "f_after.txt";
+        saveFValueToFile(vectorF, fAfterFilename);
     }
 }
 
@@ -120,10 +142,6 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
     tabuList.clear();
 
     Solution tempSolution = solution;
-
-    // Salvataggio f prima di eseguire l'ottimizzazione
-    std::string fBeforeFilename = "f_before.txt";
-    saveFValueToFile(tempSolution.f, fBeforeFilename);
 
     tempSolution.f = objectiveFunction(tempRequests, services, &solution, visibilityMatrix, true);
 
@@ -190,7 +208,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
         if(tabuList.size() > 0){
             Solution bestSolution = tabuList[0];
             for (const Solution& solution : tabuList) {
-                if (compareSolution(solution, bestSolution)) {
+                if (bestSolution.f >= solution.f) {
                     bestSolution = solution;
                 }
             }
@@ -332,7 +350,7 @@ void TabuSearch::filterTsDone(std::vector<Request> &requests, std::vector<Servic
                     for (int m = 0; m < listServicesSatellite.size(); m++) {
 
                         if (listServicesSatellite[m].getId() == tempService.getId()) {
-                            if (visibilityMatrix(j, tempService.getId(), k) == 1) {
+                            if (visibilityMatrix.getValue(j, tempService.getId(), k) == 1) {
 
                                 serviceDeployed = true;
                                 // Verifico che il timeSlot di completamento deve essere minore al timeSlot attuale
