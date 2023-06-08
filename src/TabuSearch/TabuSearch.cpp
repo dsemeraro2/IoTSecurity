@@ -23,14 +23,14 @@ TabuSearch::TabuSearch(int timeSlot, int satellites, std::vector<Service> servic
 
 
 void saveFValueToFile(std::vector<float> fValue, const std::string &filename) {
-    std::ofstream file(filename, std::ios::app);
+    std::ofstream file(filename, std::ios::trunc);
 
     if (file.is_open()) {
         for(int i =0; i<fValue.size(); i++){
             file << fValue[i] << "\n";
         }
         file.close();
-        std::cout << "Valore di f salvato correttamente su file: " << filename << "\n";
+        //std::cout << "Valore di f salvato correttamente su file: " << filename << "\n";
     } else {
         std::cout << "Impossibile aprire il file: " << filename << "\n";
     }
@@ -82,10 +82,8 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
     }
 
     // Salvataggio f dopo l'ottimizzazione
-    for(int i=0; i<vectorF.size(); i++){
-        std::string fAfterFilename = "f_after.txt";
-        saveFValueToFile(vectorF, fAfterFilename);
-    }
+    std::string fAfterFilename = "f_after.txt";
+    saveFValueToFile(vectorF, fAfterFilename);
 }
 
 Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
@@ -202,9 +200,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                 }
             }
         }
-        std::cout << "MinSolution added in TabuList: " << minSolution.f << "\n";
 
-        //TODO Prendere la migliore soluzione di tutta la tabusearch iterate
         if(tabuList.size() > 0){
             Solution bestSolution = tabuList[0];
             for (const Solution& solution : tabuList) {
@@ -212,7 +208,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
                     bestSolution = solution;
                 }
             }
-            std::cout<< "Best f solution:"<< bestSolution.f << "\n";
+            std::cout << "MinSolution added in TabuList: " << minSolution.f << "\n";
         }
 
         this->tabuList.push_back(minSolution);
