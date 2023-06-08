@@ -180,7 +180,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
 
                             int j_2_max = solution.constellations[i_2].satellaties[k_2].numberOfServices() + 1;
 
-                            for (int j_2 = 0; j_2 < j_2_max; j++) {
+                            for (int j_2 = 0; j_2 < j_2_max; j_2++) {
                                 std::cout<<"...\n";
                                 // Applico la swapMove
                                 solutionSwapped = tempSolution;
