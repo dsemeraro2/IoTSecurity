@@ -92,7 +92,7 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
 void TabuSearch::swapMove(Solution &tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
                               int destTimeSlot, int destService, int destSatellite) {
 
-    std::cout<<"Swap move...\n";
+    //std::cout<<"Swap move...\n";
 
     Service tempService_1 = tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].getServiceByIndex(
             sourceService);
@@ -190,8 +190,9 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
                                     solutionSwapped.f = objectiveFunction(tempRequests, services, &solutionSwapped,
                                                                           visibilityMatrix, false);
                                     if (solutionSwapped.f != INT_MAX) {
+                                        //system("pause");
+                                        std::cout<<"Ritardo SS.f:"<<solutionSwapped.f;
                                         if (solutionSwapped.f < minInteraction) {
-
                                             if (!isSolutionInTabuList(solutionSwapped)) {
                                                 minInteraction = minSolution.f;
                                                 minSolution = solutionSwapped;
@@ -234,7 +235,7 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
 bool TabuSearch::stopCondition(std::vector<float> historySolution) {
 
     //TODO DEFINIRE LA STOP CONDITION MEGLIO
-    if (historySolution.size() > 300) {
+    if (historySolution.size() > 5) {
         std::cout << "\nStopping condition TRUE\n";
         return true;
     }
