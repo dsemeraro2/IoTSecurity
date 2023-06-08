@@ -22,12 +22,12 @@ public:
 
     void optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali);
 
-    Solution swapMove(Solution tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
+    Solution swapMove(Solution &tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
                       int destTimeSlot, int destService, int destSatellite);
 
     bool stopCondition(std::vector<float> historySolution);
 
-    Solution tabuSearchIterate(std::vector<Request> tempRequests);
+    Solution tabuSearchIterate(std::vector<Request> tempRequests, int currentIndex);
 
     bool isSolutionInTabuList(Solution &sourceSol);
 

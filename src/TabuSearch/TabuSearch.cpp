@@ -39,6 +39,7 @@ void saveFValueToFile(std::vector<float> fValue, const std::string &filename) {
 void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali) {
 
     std::vector<float> vectorF;
+    int n_request_ts = 0;
 
     for (int i = timeSlotInitial; i < timeSlotTotali; i++) {
 
@@ -53,10 +54,12 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
             }
         }
 
+        n_request_ts= tempRequests.size();
+
         // Applicazione della swapmove
         if (tempRequests.size() > 0) {
 
-            Solution tempSolution = tabuSearchIterate(tempRequests);
+            Solution tempSolution = tabuSearchIterate(tempRequests, i);
 
             filterTsDone(requests, services, &tempSolution, visibilityMatrix, false, i);
 
@@ -74,7 +77,7 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
             //TODO SALVARE SU FILE SOLUTION.F -- DA VERIFICARE CHE F VENGA VALORIZZATO
 
 
-            vectorF.push_back(tempSolution.f);
+            vectorF.push_back(tempSolution.f/n_request_ts);
 
         } else {
             std::cout << "Nessuna richiesta trovata!";
@@ -82,11 +85,11 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
     }
 
     // Salvataggio f dopo l'ottimizzazione
-    std::string fAfterFilename = "f_after.txt";
+    std::string fAfterFilename = "f_avarage.txt";
     saveFValueToFile(vectorF, fAfterFilename);
 }
 
-Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
+void TabuSearch::swapMove(Solution &tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
                               int destTimeSlot, int destService, int destSatellite) {
 
     std::cout<<"Swap move...\n";
@@ -108,10 +111,10 @@ Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sou
                 getServiceById(this->services, sourceService));
 
         if (checkAddServiceSource == 1 && checkAddServiceDest == 1) {
-            return tempSolution;
+            //return tempSolution;
         } else {
             tempSolution.f = INT_MAX;
-            return tempSolution;
+            //return tempSolution;
         }
 
         //allocationServicesMatrix.setValue(sourceTimeSlot, sourceService, sourceSatellite, 0);
@@ -124,17 +127,17 @@ Solution TabuSearch::swapMove(Solution tempSolution, int sourceTimeSlot, int sou
                 getServiceById(this->services, destService));
 
         if (checkAddServiceSource == 1) {
-            return tempSolution;
+            //return tempSolution;
         } else {
             tempSolution.f = INT_MAX;
-            return tempSolution;
+            //return tempSolution;
         }
     }
 
-    return tempSolution;
+    //return tempSolution;
 }
 
-Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
+Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int currentIndex) {
 
     // Mi ripulisco la tabuList per ogni oggetto di Solution
     tabuList.clear();
@@ -155,6 +158,8 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
 
     //Vettore delle soluzioni
     std::vector<float> historySolution;
+
+    historySolution.push_back(tempSolution.f);
 
     // Ciclo su tutte le solution
     while (!stopCondition(historySolution)) {
@@ -217,6 +222,11 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests) {
         historySolution.push_back(tempSolution.f);
 
     }
+
+    // Salvataggio f dopo l'ottimizzazione
+    std::string fAfterFilename = "f_slot_" + std::to_string(currentIndex) + ".txt";
+    saveFValueToFile(historySolution, fAfterFilename);
+
     return minSolution;
 }
 
