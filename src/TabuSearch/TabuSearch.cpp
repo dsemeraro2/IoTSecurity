@@ -26,7 +26,7 @@ void saveFValueToFile(std::vector<float> fValue, const std::string &filename) {
     std::ofstream file(filename, std::ios::trunc);
 
     if (file.is_open()) {
-        for(int i =0; i<fValue.size(); i++){
+        for (int i = 0; i < fValue.size(); i++) {
             file << fValue[i] << "\n";
         }
         file.close();
@@ -54,7 +54,7 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
             }
         }
 
-        n_request_ts= tempRequests.size();
+        n_request_ts = tempRequests.size();
 
         // Applicazione della swapmove
         if (tempRequests.size() > 0) {
@@ -77,7 +77,7 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
             //TODO SALVARE SU FILE SOLUTION.F -- DA VERIFICARE CHE F VENGA VALORIZZATO
 
 
-            vectorF.push_back(tempSolution.f/n_request_ts);
+            vectorF.push_back(tempSolution.f / n_request_ts);
 
         } else {
             std::cout << "Nessuna richiesta trovata!";
@@ -90,7 +90,7 @@ void TabuSearch::optimizationTabuSearch(int timeSlotInitial, int timeSlotTotali)
 }
 
 void TabuSearch::swapMove(Solution &tempSolution, int sourceTimeSlot, int sourceService, int sourceSatellite,
-                              int destTimeSlot, int destService, int destSatellite) {
+                          int destTimeSlot, int destService, int destSatellite) {
 
     //std::cout<<"Swap move...\n";
 
@@ -123,8 +123,8 @@ void TabuSearch::swapMove(Solution &tempSolution, int sourceTimeSlot, int source
     } else if (tempService_1.getId() != -1 && tempService_2.getId() == -1) {
         tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].removeServiceByIndex(sourceService);
 
-        int checkAddServiceSource = tempSolution.constellations[sourceTimeSlot].satellaties[sourceSatellite].addService(
-                getServiceById(this->services, destService));
+        int checkAddServiceSource = tempSolution.constellations[destTimeSlot].satellaties[destSatellite].addService(
+                getServiceById(this->services, sourceService));
 
         if (checkAddServiceSource == 1) {
             //return tempSolution;
@@ -181,23 +181,25 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
                             int j_2_max = solution.constellations[i_2].satellaties[k_2].numberOfServices() + 1;
 
                             for (int j_2 = 0; j_2 < j_2_max; j_2++) {
-                                std::cout<<"...\n";
+                                std::cout << "...\n";
                                 // Applico la swapMove
                                 solutionSwapped = tempSolution;
-                                swapMove(solutionSwapped, i, j, k, i_2, j_2, k_2);
-                                if (solutionSwapped.f != INT_MAX) {
-                                    // Ricalcolo della funzione obiettivo
-                                    solutionSwapped.f = objectiveFunction(tempRequests, services, &solutionSwapped,
-                                                                          visibilityMatrix, false);
+                                if (i != i_2 && k != k_2) {
+                                    swapMove(solutionSwapped, i, j, k, i_2, j_2, k_2);
                                     if (solutionSwapped.f != INT_MAX) {
-                                        //system("pause");
-                                        std::cout<<"Ritardo SS.f:"<<solutionSwapped.f;
-                                        if (solutionSwapped.f < minInteraction) {
-                                            if (!isSolutionInTabuList(solutionSwapped)) {
-                                                minInteraction = minSolution.f;
-                                                minSolution = solutionSwapped;
+                                        // Ricalcolo della funzione obiettivo
+                                        solutionSwapped.f = objectiveFunction(tempRequests, services, &solutionSwapped,
+                                                                              visibilityMatrix, false);
+                                        if (solutionSwapped.f != INT_MAX) {
+                                            //system("pause");
+                                            std::cout << "Ritardo SS.f:" << solutionSwapped.f;
+                                            if (solutionSwapped.f < minInteraction) {
+                                                if (!isSolutionInTabuList(solutionSwapped)) {
+                                                    minInteraction = minSolution.f;
+                                                    minSolution = solutionSwapped;
+                                                }
+                                                //TODO GESTIRE CASO UNFEASIBLE
                                             }
-                                            //TODO GESTIRE CASO UNFEASIBLE
                                         }
                                     }
                                 }
@@ -208,9 +210,9 @@ Solution TabuSearch::tabuSearchIterate(std::vector<Request> tempRequests, int cu
             }
         }
 
-        if(tabuList.size() > 0){
+        if (tabuList.size() > 0) {
             Solution bestSolution = tabuList[0];
-            for (const Solution& solution : tabuList) {
+            for (const Solution &solution: tabuList) {
                 if (bestSolution.f >= solution.f) {
                     bestSolution = solution;
                 }
@@ -259,7 +261,8 @@ bool TabuSearch::isSolutionInTabuList(Solution &sourceSol) {
 
 }
 
-bool TabuSearch::compareSolution(const Solution &sourceSol, const Solution &destSol) { // Li passo per referenza e non per copia
+bool TabuSearch::compareSolution(const Solution &sourceSol,
+                                 const Solution &destSol) { // Li passo per referenza e non per copia
 
     // Confronta il valore di f
     if (sourceSol.f != destSol.f) {
@@ -379,7 +382,7 @@ void TabuSearch::filterTsDone(std::vector<Request> &requests, std::vector<Servic
     }
 }
 
-bool TabuSearch::compareBestSolution(const Solution& sourceSol, const Solution& destSol) {
+bool TabuSearch::compareBestSolution(const Solution &sourceSol, const Solution &destSol) {
     if (sourceSol.f < destSol.f) {
         return true;  // La seconda soluzione è migliore della prima
     } else {
