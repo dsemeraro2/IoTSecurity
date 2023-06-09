@@ -11,8 +11,8 @@ int timeSlotDeadline = ceil(simulationDeadline / timeSlotDuration); // Timeslot 
 
 //n*m*tMax dove n = numero cluster, m = numero leo satellite, t = durata totale simulazione
 int T = timeSlotTotali;
-int N = 3;
-int M = 3;
+int N = 50;
+int M = 7;
 
 std::vector<Cluster> initializeClusters() {
     std::vector<Cluster> clusters;
